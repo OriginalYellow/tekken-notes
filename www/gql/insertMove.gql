@@ -1,0 +1,14 @@
+mutation insertMove($input: [move_insert_input!]!) {
+  insert_move(objects: $input) {
+    returning {
+      id
+      name
+      noteText
+      onBlock
+      onCounterhit
+      onHit
+      startupFrames
+      buttonInput
+    }
+  }
+}

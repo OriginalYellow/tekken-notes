@@ -5,13 +5,18 @@
       sm8
       md6
     >
-      <notes-view :notes="notes" @add="handleAdd" />
+      <notes-view
+        :notes="moves"
+        @add="handleAdd"
+      />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import NotesView from '~/components/NotesView'
+import allMoves from '~/gql/allMoves.gql'
+import insertMove from '~/gql/insertMove.gql'
 
 export default {
   components: {
@@ -20,31 +25,40 @@ export default {
 
   data () {
     return {
-      notes: [
-        {
-          name: 'a cool move',
-          startUpFrames: 10,
-          onBlock: '-7',
-          onHit: '+1',
-          onCounterHit: '+9',
-          buttonInput: [1, 3],
-          noteText: 'Punish, 10 frame'
-        },
-        {
-          name: 'another cool move',
-          startUpFrames: 10,
-          onBlock: '-12',
-          onHit: 'knd',
-          onCounterHit: 'knd',
-          buttonInput: [1, 3, 2]
-        }
-      ]
+      moves: []
     }
+  },
+
+  beforeCreate () {
+    this.$apollo.query({ query: allMoves }).then(
+      ({
+        data: {
+          moves: { nodes }
+        }
+      }) => {
+        this.moves = nodes
+      }
+    )
   },
 
   methods: {
     handleAdd (newMove) {
-      this.notes.push(newMove)
+      this.$apollo.mutate({
+        mutation: insertMove,
+        variables: {
+          input: {
+            ...newMove,
+            createdBy: 1,
+            buttonInput: newMove.buttonInput.toString()
+          }
+        },
+        // eslint-disable-next-line camelcase
+        update: (store, { data: { insert_move: { returning } } }) => {
+          const data = store.readQuery({ query: allMoves })
+          data.moves.nodes.push(returning[0])
+          store.writeQuery({ query: allMoves, data })
+        }
+      })
     }
   }
 }

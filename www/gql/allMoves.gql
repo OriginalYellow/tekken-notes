@@ -1,0 +1,14 @@
+query allMoves {
+  moves {
+    nodes {
+      id
+      name
+      noteText
+      onBlock
+      onCounterhit
+      onHit
+      startupFrames
+      buttonInput
+    }
+  }
+}

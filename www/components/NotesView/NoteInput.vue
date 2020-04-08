@@ -34,7 +34,7 @@
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.startUpFrames"
+          v-model="newMove.startupFrames"
           label="startup frames"
         />
       </v-card-text>
@@ -52,7 +52,7 @@
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.onCounterHit"
+          v-model="newMove.onCounterhit"
           label="on counter-hit"
         />
       </v-card-text>
@@ -90,10 +90,10 @@ export default {
     return {
       newMove: {
         name: 'default',
-        startUpFrames: 1,
+        startupFrames: 1,
         onBlock: 'default',
         onHit: 'default',
-        onCounterHit: 'default',
+        onCounterhit: 'default',
         buttonInput: ['0', '0'],
         noteText: 'default'
       },

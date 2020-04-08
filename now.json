@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "build": {
+    "env": {
+      "HASURA_ENDPOINT": "http://142.93.196.169/v1/graphql"
+    }
+  },
   "builds": [
     {
       "src": "www/nuxt.config.js",

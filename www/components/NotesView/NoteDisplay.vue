@@ -6,7 +6,7 @@
     <v-expansion-panel-content>
       <p class="mt-8">
         {{
-          `i${startUpFrames}&nbsp;&nbsp;&nbsp;&nbsp;${onBlock} | ${onHit} | ${onCounterHit}
+          `i${startupFrames}&nbsp;&nbsp;&nbsp;&nbsp;${onBlock} | ${onHit} | ${onCounterhit}
         &nbsp;&nbsp;&nbsp;${buttonInput}`
         }}
       </p>
@@ -24,7 +24,7 @@ export default {
       type: String,
       required: true
     },
-    startUpFrames: {
+    startupFrames: {
       type: Number,
       required: true
     },
@@ -36,7 +36,7 @@ export default {
       type: String,
       required: true
     },
-    onCounterHit: {
+    onCounterhit: {
       type: String,
       required: true
     },
