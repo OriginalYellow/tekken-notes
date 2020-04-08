@@ -2,7 +2,7 @@
   "version": 2,
   "build": {
     "env": {
-      "HASURA_ENDPOINT": "http://142.93.196.169/v1/graphql"
+      "HASURA_ENDPOINT": "https://hasura.michaeljoseph.dev/v1/graphql"
     }
   },
   "builds": [
