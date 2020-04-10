@@ -15,6 +15,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  env: {
+    baseUrlEncoded: process.env.BASE_URL_ENCODED || 'http%3A%2F%2Flocalhost:3000%2F'
+  },
   /*
   ** Customize the progress-bar color
   */

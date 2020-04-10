@@ -73,7 +73,7 @@ export default {
   methods: {
     handleLogout () {
       this.$auth.logout().then(() => {
-        window.location.replace('https://tekken-notes-production.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost:3000%2F')
+        window.location.replace(`https://tekken-notes-production.auth0.com/v2/logout?returnTo=${process.env.baseUrlEncoded}`)
       })
     }
   }
