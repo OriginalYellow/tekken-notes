@@ -1,0 +1,15 @@
+query userWithMoves {
+  user {
+    moves {
+      name
+      noteText
+      onCounterhit
+      onBlock
+      onHit
+      startupFrames
+      buttonInput
+      id
+    }
+    id
+  }
+}

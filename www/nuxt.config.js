@@ -78,7 +78,8 @@ export default {
     strategies: {
       auth0: {
         domain: 'tekken-notes-production.auth0.com',
-        client_id: 'oxvawDM5qVP7PR85CnPp75Ea9mK11wdh'
+        client_id: 'oxvawDM5qVP7PR85CnPp75Ea9mK11wdh',
+        audience: 'https://tekken-notes-production.auth0.com/api/v2/'
       }
     }
   },

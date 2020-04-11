@@ -15,7 +15,8 @@
 
 <script>
 import NotesView from '~/components/NotesView'
-import allMoves from '~/gql/allMoves.gql'
+// import allMoves from '~/gql/allMoves.gql'
+import userWithMoves from '~/gql/userWithMoves.gql'
 import insertMove from '~/gql/insertMove.gql'
 
 export default {
@@ -30,15 +31,19 @@ export default {
   },
 
   beforeCreate () {
-    this.$apollo.query({ query: allMoves }).then(
-      ({
-        data: {
-          moves: { nodes }
+    this.$apollo
+      .query({
+        query: userWithMoves
+      })
+      .then(
+        ({
+          data: {
+            user
+          }
+        }) => {
+          this.moves = user[0].moves
         }
-      }) => {
-        this.moves = nodes
-      }
-    )
+      )
   },
 
   methods: {
@@ -48,15 +53,22 @@ export default {
         variables: {
           input: {
             ...newMove,
-            createdBy: 1,
+            createdBy: this.$auth.user.sub,
             buttonInput: newMove.buttonInput.toString()
           }
         },
         // eslint-disable-next-line camelcase
-        update: (store, { data: { insert_move: { returning } } }) => {
-          const data = store.readQuery({ query: allMoves })
-          data.moves.nodes.push(returning[0])
-          store.writeQuery({ query: allMoves, data })
+        update: (
+          store,
+          {
+            data: {
+              insert_move: { returning }
+            }
+          }
+        ) => {
+          const data = store.readQuery({ query: userWithMoves })
+          data.user[0].moves.push(returning[0])
+          store.writeQuery({ query: userWithMoves, data })
         }
       })
     }
