@@ -1,7 +1,28 @@
 <template>
   <div>
-    <move-input />
-    <move-list multiple :moves="moves" />
+    <move-input
+      title="Add a new move"
+      complete-button-text="add"
+    >
+      <template v-slot:asdf="{ on }">
+        <v-btn
+          dark
+          absolute
+          bottom
+          right
+          fab
+          color="green"
+          :style="addButtonStyle"
+          v-on="on"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
+    </move-input>
+    <move-list
+      multiple
+      :moves="moves"
+    />
   </div>
 </template>
 
@@ -19,6 +40,14 @@ export default {
     moves: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data () {
+    return {
+      addButtonStyle: {
+        bottom: '20px'
+      }
     }
   }
 }

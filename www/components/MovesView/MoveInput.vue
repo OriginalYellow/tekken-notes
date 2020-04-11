@@ -4,18 +4,8 @@
     width="500"
   >
     <template v-slot:activator="{ on }">
-      <v-btn
-        dark
-        absolute
-        bottom
-        right
-        fab
-        color="green"
-        :style="addButtonStyle"
-        v-on="on"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
+      <!-- naming this stuff other than "asdf" mysterously breaks it ooooooo -->
+      <slot name="asdf" :on="on" />
     </template>
 
     <v-card>
@@ -23,7 +13,7 @@
         class="headline grey lighten-2"
         primary-title
       >
-        add a new move
+        {{ title }}
       </v-card-title>
 
       <v-card-text>
@@ -74,10 +64,11 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
+          dark
           color="green"
-          @click="onAdd"
+          @click="onInsertMove"
         >
-          add
+          {{ completeButtonText }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -85,7 +76,24 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    completeButtonText: {
+      type: String,
+      required: true
+    },
+    id: {
+      type: Number,
+      default: null
+    }
+  },
+
   data () {
     return {
       newMove: {
@@ -97,19 +105,23 @@ export default {
         buttonInput: ['0', '0'],
         noteText: 'default'
       },
-      dialog: false,
-      addButtonStyle: {
-        bottom: '20px'
-      }
+      dialog: false
     }
   },
 
   methods: {
-    onAdd () {
-      this.$parent.$emit('add', {
-        ...this.newMove
-      })
+    ...mapActions(['insertMove']),
+
+    onInsertMove () {
       this.dialog = false
+
+      const newMove = { ...this.newMove }
+
+      if (this.id) {
+        newMove.id = this.id
+      }
+
+      this.insertMove(newMove)
     }
   }
 }

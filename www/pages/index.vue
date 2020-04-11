@@ -4,10 +4,17 @@
       xs12
       sm8
       md6
+      class="py-5 px-3"
     >
+      <p class="display-2">
+        My Moves
+      </p>
+      <p v-if="!$auth.loggedIn">
+        login or sign up to see your moves and add new ones
+      </p>
       <moves-view
+        v-else
         :moves="moves"
-        @add="handleAdd"
       />
     </v-flex>
   </v-layout>
@@ -26,28 +33,28 @@ export default {
 
   data () {
     return {
-      moves: []
+      user: null
     }
   },
 
-  beforeCreate () {
-    this.$apollo
-      .query({
-        query: userWithMoves
-      })
-      .then(
-        ({
-          data: {
-            user
-          }
-        }) => {
-          this.moves = user[0].moves
-        }
-      )
+  computed: {
+    moves () {
+      if (!this.user) {
+        return []
+      }
+
+      return this.user[0].moves
+    }
+  },
+
+  apollo: {
+    user: {
+      query: userWithMoves
+    }
   },
 
   methods: {
-    handleAdd (newMove) {
+    handleInsertMove (newMove) {
       this.$apollo.mutate({
         mutation: insertMove,
         variables: {

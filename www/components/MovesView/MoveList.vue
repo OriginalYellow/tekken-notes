@@ -11,7 +11,7 @@
     >
       <v-expansion-panel
         v-for="move in moves"
-        :key="move.name"
+        :key="move.id"
       >
         <move-display v-bind="move" />
       </v-expansion-panel>
