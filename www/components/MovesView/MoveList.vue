@@ -10,7 +10,7 @@
       style="width: 100%;"
     >
       <v-expansion-panel
-        v-for="move in moves"
+        v-for="move in sortedMoves"
         :key="move.id"
       >
         <move-display v-bind="move" />
@@ -21,6 +21,16 @@
 
 <script>
 import MoveDisplay from './MoveDisplay.vue'
+
+const sortByCreated = (moves, ascending = true) => {
+  return moves.sort(({ createdAt: ts1 }, { createdAt: ts2 }) => {
+    if (ascending) {
+      return Date.parse(ts2) - Date.parse(ts1)
+    }
+
+    return Date.parse(ts1) - Date.parse(ts2)
+  })
+}
 
 export default {
   components: {
@@ -36,7 +46,23 @@ export default {
 
   data () {
     return {
-      value: []
+      value: [],
+      sortBy: 'createdAt',
+      sortDirection: 'ascending'
+    }
+  },
+
+  computed: {
+    sortedMoves () {
+      if (this.sortBy === 'createdAt') {
+        if (this.sortDirection === 'descending') {
+          return sortByCreated(this.moves, false)
+        } else {
+          return sortByCreated(this.moves)
+        }
+      }
+
+      return this.moves
     }
   }
 }

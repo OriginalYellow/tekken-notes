@@ -33,6 +33,14 @@ export const actions = {
         }
       ) => {
         const data = store.readQuery({ query: userWithMoves })
+
+        if (
+          data.user[0].moves.find(
+            ({ id }) => id === returning[0].id
+          )) {
+          return
+        }
+
         data.user[0].moves.push(returning[0])
         store.writeQuery({ query: userWithMoves, data })
       }

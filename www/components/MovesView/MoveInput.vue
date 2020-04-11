@@ -18,43 +18,43 @@
 
       <v-card-text>
         <v-text-field
-          v-model="newMove.name"
+          v-model="move.name"
           label="name"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.startupFrames"
+          v-model="move.startupFrames"
           label="startup frames"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.onBlock"
+          v-model="move.onBlock"
           label="on block"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.onHit"
+          v-model="move.onHit"
           label="on hit"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.onCounterhit"
+          v-model="move.onCounterhit"
           label="on counter-hit"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.buttonInput"
+          v-model="move.buttonInput"
           label="button input"
         />
       </v-card-text>
       <v-card-text>
         <v-text-field
-          v-model="newMove.noteText"
+          v-model="move.noteText"
           label="notes"
         />
       </v-card-text>
@@ -96,7 +96,7 @@ export default {
 
   data () {
     return {
-      newMove: {
+      move: {
         name: 'default',
         startupFrames: 1,
         onBlock: 'default',
@@ -115,13 +115,13 @@ export default {
     onInsertMove () {
       this.dialog = false
 
-      const newMove = { ...this.newMove }
+      const move = { ...this.move }
 
       if (this.id) {
-        newMove.id = this.id
+        move.id = this.id
       }
 
-      this.insertMove(newMove)
+      this.insertMove(move)
     }
   }
 }

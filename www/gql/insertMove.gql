@@ -14,6 +14,7 @@ mutation insertMove($input: [move_insert_input!]!) {
       onHit
       startupFrames
       buttonInput
+      createdAt
     }
   }
 }

@@ -8,6 +8,7 @@ query userWithMoves {
       onHit
       startupFrames
       buttonInput
+      createdAt
       id
     }
     id
