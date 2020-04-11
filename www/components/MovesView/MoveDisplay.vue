@@ -28,6 +28,13 @@
                 :id="id"
                 title="Edit move"
                 complete-button-text="apply"
+                :name="name"
+                :startup-frames="startupFrames"
+                :on-block="onBlock"
+                :on-hit="onHit"
+                :on-counterhit="onCounterhit"
+                :button-input="buttonInput"
+                :note-text="noteText"
               >
                 <template v-slot:asdf="{ on }">
                   <v-btn

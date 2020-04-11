@@ -8,7 +8,6 @@
 //   }
 // }
 
-// eslint-disable-next-line no-unused-vars
 import { remove, findIndex, propEq } from 'ramda'
 import userWithMoves from '~/gql/userWithMoves.gql'
 import insertMove from '~/gql/insertMove.gql'
@@ -58,8 +57,8 @@ export const actions = {
       variables: {
         input: {
           ...move,
-          createdBy: this.$auth.user.sub,
-          buttonInput: move.buttonInput.toString()
+          createdBy: this.$auth.user.sub
+          // buttonInput: move.buttonInput.toString()
         }
       },
       update: (

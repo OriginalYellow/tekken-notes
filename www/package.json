@@ -22,7 +22,9 @@
     "@nuxtjs/pwa": "^3.0.0-0",
     "graphql-tag": "^2.10.3",
     "nuxt": "^2.0.0",
-    "ramda": "^0.27.0"
+    "ramda": "^0.27.0",
+    "ramda-adjunct": "^2.26.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",
