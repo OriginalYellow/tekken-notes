@@ -1,0 +1,7 @@
+mutation deleteMove($moveId: Int) {
+  delete_move(where: {id: {_eq: $moveId}}) {
+    returning {
+      id
+    }
+  }
+}

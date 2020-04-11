@@ -45,6 +45,7 @@
                 outlined
                 dark
                 color="red"
+                @click="handleDeleteMove"
               >
                 delete
               </v-btn>
@@ -57,6 +58,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import MoveInput from './MoveInput'
 
 export default {
@@ -96,6 +98,14 @@ export default {
     id: {
       type: Number,
       required: true
+    }
+  },
+
+  methods: {
+    ...mapActions(['deleteMove']),
+
+    handleDeleteMove () {
+      this.deleteMove(this.id)
     }
   }
 }
