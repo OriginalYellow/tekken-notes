@@ -5,8 +5,8 @@
       sm8
       md6
     >
-      <notes-view
-        :notes="moves"
+      <moves-view
+        :moves="moves"
         @add="handleAdd"
       />
     </v-flex>
@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import NotesView from '~/components/NotesView'
+import MovesView from '~/components/MovesView'
 // import allMoves from '~/gql/allMoves.gql'
 import userWithMoves from '~/gql/userWithMoves.gql'
 import insertMove from '~/gql/insertMove.gql'
 
 export default {
   components: {
-    NotesView
+    MovesView
   },
 
   data () {

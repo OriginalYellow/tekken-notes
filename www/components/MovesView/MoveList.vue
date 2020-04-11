@@ -10,25 +10,25 @@
       style="width: 100%;"
     >
       <v-expansion-panel
-        v-for="note in notes"
-        :key="note.name"
+        v-for="move in moves"
+        :key="move.name"
       >
-        <note-display v-bind="note" />
+        <move-display v-bind="move" />
       </v-expansion-panel>
     </v-slide-y-transition>
   </v-expansion-panels>
 </template>
 
 <script>
-import NoteDisplay from './NoteDisplay.vue'
+import MoveDisplay from './MoveDisplay.vue'
 
 export default {
   components: {
-    NoteDisplay
+    MoveDisplay
   },
 
   props: {
-    notes: {
+    moves: {
       type: Array,
       default: () => []
     }
