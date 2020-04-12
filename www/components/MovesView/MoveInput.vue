@@ -23,6 +23,7 @@
         <v-text-field
           v-model="computedName"
           clearable
+          :label="computedName ? 'name' : false"
           :error-messages="{
             validations: $v.computedName,
             errorMessages: [
@@ -39,6 +40,7 @@
         <v-text-field
           v-model="computedStartupFrames"
           clearable
+          :label="computedStartupFrames ? 'startup frames' : false"
           :error-messages="{
             validations: $v.computedStartupFrames,
             errorMessages: [
@@ -55,6 +57,7 @@
         <v-text-field
           v-model="computedOnBlock"
           clearable
+          :label="computedOnBlock ? 'frames/effect on block' : false"
           :error-messages="{
             validations: $v.computedOnBlock,
             errorMessages: [
@@ -71,6 +74,7 @@
         <v-text-field
           v-model="computedOnHit"
           clearable
+          :label="computedOnHit ? 'frames/effect on hit' : false"
           :error-messages="{
             validations: $v.computedOnHit,
             errorMessages: [
@@ -87,6 +91,7 @@
         <v-text-field
           v-model="computedOnCounterhit"
           clearable
+          :label="computedOnCounterhit ? 'frames/effect on counter-hit' : false"
           :error-messages="{
             validations: $v.computedOnCounterhit,
             errorMessages: [
@@ -103,6 +108,7 @@
         <v-text-field
           v-model="computedButtonInput"
           clearable
+          :label="computedButtonInput ? 'button input' : false"
           :error-messages="{
             validations: $v.computedButtonInput,
             errorMessages: [
@@ -119,6 +125,7 @@
         <v-text-field
           v-model="computedNoteText"
           clearable
+          :label="computedNoteText ? 'notes' : false"
           :error-messages="{
             validations: $v.computedNoteText,
             errorMessages: [
@@ -261,9 +268,9 @@ export default {
       return {
         name: this.name || 'move name',
         startupFrames: this.startupFrames || 'startup frames',
-        onBlock: this.onBlock || 'on block',
-        onHit: this.onHit || 'on hit',
-        onCounterhit: this.onCounterhit || 'on counter-hit',
+        onBlock: this.onBlock || 'frames or effect on block',
+        onHit: this.onHit || 'frames or effect hit',
+        onCounterhit: this.onCounterhit || 'frames or effect on counter-hit',
         buttonInput: this.buttonInput || 'button input',
         noteText: this.noteText || 'notes'
       }
@@ -340,6 +347,14 @@ export default {
     },
 
     requiredMessage: () => sentenceCase('this field is required')
+  },
+
+  watch: {
+    dialog (newVal) {
+      if (!newVal) {
+        this.$v.$reset()
+      }
+    }
   },
 
   methods: {
