@@ -9,11 +9,11 @@
       <p class="display-2">
         My Moves
       </p>
-      <p v-if="!$auth.loggedIn">
+      <p v-show="!$auth.loggedIn">
         login or sign up to see your moves and add new ones
       </p>
       <moves-view
-        v-else
+        v-show="$auth.loggedIn"
         :moves="moves"
       />
     </v-flex>

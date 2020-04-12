@@ -5,12 +5,12 @@
       fixed
       app
     >
-      <v-toolbar-title v-if="$auth.loggedIn">
+      <v-toolbar-title v-show="$auth.loggedIn">
         {{ $auth.user.name }}
       </v-toolbar-title>
       <v-spacer />
       <v-btn
-        v-if="!$auth.loggedIn"
+        v-show="!$auth.loggedIn"
         color="blue"
         dark
         @click="$auth.loginWith('auth0')"
@@ -18,7 +18,7 @@
         login
       </v-btn>
       <v-btn
-        v-else
+        v-show="$auth.loggedIn"
         color="blue"
         dark
         @click="handleLogout"
