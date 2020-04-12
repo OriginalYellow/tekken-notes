@@ -6,7 +6,7 @@
       app
     >
       <v-toolbar-title v-show="$auth.loggedIn">
-        {{ $auth.user.name }}
+        {{ $auth.user ? $auth.user.name : '' }}
       </v-toolbar-title>
       <v-spacer />
       <v-btn
