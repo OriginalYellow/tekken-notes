@@ -45,6 +45,7 @@
             validations: $v.computedStartupFrames,
             errorMessages: [
               { validationName: 'isNotNilOrEmpty', message: requiredMessage },
+              { validationName: 'integer', message: 'must be an integer' },
             ]
             // eslint-disable-next-line vue/no-multi-spaces
           } | formatErrorMessages"
@@ -170,7 +171,7 @@ import {
 } from 'ramda'
 
 import { isNilOrEmpty } from 'ramda-adjunct'
-// import { required } from 'vuelidate/lib/validators'
+import { integer } from 'vuelidate/lib/validators'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
 
@@ -244,7 +245,8 @@ export default {
       isNotNilOrEmpty
     },
     computedStartupFrames: {
-      isNotNilOrEmpty
+      isNotNilOrEmpty,
+      integer
     },
     computedOnBlock: {
       isNotNilOrEmpty
