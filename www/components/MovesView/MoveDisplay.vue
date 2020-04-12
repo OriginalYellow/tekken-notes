@@ -27,7 +27,7 @@
               <move-input
                 :id="id"
                 title="Edit move"
-                complete-button-text="apply"
+                complete-button-text="save"
                 :name="name"
                 :startup-frames="startupFrames"
                 :on-block="onBlock"
