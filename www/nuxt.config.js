@@ -31,7 +31,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~plugins/vuelidate.js'
+    '~plugins/vuelidate.js',
+    { src: '~plugins/partial.lenses.validation.js', mode: 'client' }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -114,6 +115,18 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
+      }
+    },
+    // transpile: [
+    //   ({ isClient }) => isClient && 'partial.lenses.validation'
+    //   // 'partial.lenses.validation'
+    // ],
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-export-default-from'
+      ]
     }
   }
 }

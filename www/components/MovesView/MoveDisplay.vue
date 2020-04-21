@@ -67,6 +67,7 @@
 <script>
 import { mapActions } from 'vuex'
 import MoveInput from './MoveInput'
+import moveProps from '~/moveProps'
 
 export default {
   components: {
@@ -74,38 +75,7 @@ export default {
   },
 
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    startupFrames: {
-      type: Number,
-      required: true
-    },
-    onBlock: {
-      type: String,
-      required: true
-    },
-    onHit: {
-      type: String,
-      required: true
-    },
-    onCounterhit: {
-      type: String,
-      required: true
-    },
-    buttonInput: {
-      type: Array,
-      required: true
-    },
-    noteText: {
-      type: String,
-      default: null
-    },
-    id: {
-      type: Number,
-      required: true
-    }
+    ...moveProps
   },
 
   methods: {

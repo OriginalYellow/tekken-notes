@@ -172,6 +172,7 @@ import {
 
 import { isNilOrEmpty } from 'ramda-adjunct'
 import { integer } from 'vuelidate/lib/validators'
+import moveProps from '~/moveProps'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
 
@@ -183,6 +184,7 @@ const sentenceCase = pipe(juxt([pipe(head, toUpper), tail]), join(''))
 
 export default {
   props: {
+    ...moveProps,
     title: {
       type: String,
       required: true
@@ -190,38 +192,6 @@ export default {
     completeButtonText: {
       type: String,
       required: true
-    },
-    name: {
-      type: String,
-      default: null
-    },
-    startupFrames: {
-      type: Number,
-      default: null
-    },
-    onBlock: {
-      type: String,
-      default: null
-    },
-    onHit: {
-      type: String,
-      default: null
-    },
-    onCounterhit: {
-      type: String,
-      default: null
-    },
-    buttonInput: {
-      type: Array,
-      default: () => null
-    },
-    noteText: {
-      type: String,
-      default: null
-    },
-    id: {
-      type: Number,
-      default: null
     }
   },
 
