@@ -14,6 +14,7 @@
           v-show="!$auth.loggedIn"
           color="blue"
           dark
+          depressed
           @click="$auth.loginWith('auth0')"
         >
           login
@@ -22,6 +23,7 @@
           v-show="$auth.loggedIn"
           color="blue"
           dark
+          depressed
           @click="handleLogout"
         >
           logout

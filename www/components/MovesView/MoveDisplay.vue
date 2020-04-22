@@ -62,9 +62,9 @@
               >
                 <template v-slot:asdf="{ on }">
                   <v-btn
-                    outlined
                     dark
                     color="blue"
+                    depressed
                     v-on="on"
                   >
                     edit
