@@ -9,6 +9,9 @@ mutation insertMove($input: [move_insert_input!]!) {
       id
       name
       characterName
+      character {
+        portrait
+      }
       noteText
       onBlock
       onCounterhit

@@ -13,7 +13,10 @@
         v-for="move in sortedMoves"
         :key="move.id"
       >
-        <move-display v-bind="move" />
+        <move-display
+          v-bind="move"
+          :character-portrait="move.character.portrait"
+        />
       </v-expansion-panel>
     </v-slide-y-transition>
   </v-expansion-panels>

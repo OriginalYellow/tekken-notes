@@ -1,7 +1,30 @@
 <template>
   <div>
     <v-expansion-panel-header class="title">
-      {{ name }}
+      <v-layout class="mr-5">
+        <v-flex>
+          <p class="text-left mb-0">
+            {{ name }}
+          </p>
+        </v-flex>
+        <v-flex>
+          <p class="text-right mb-0">
+            <v-chip
+              pill
+              class="custom-pill"
+              color="blue lighten-4"
+            >
+              {{ characterName }}
+              <v-avatar
+                right
+                size="60"
+              >
+                <v-img :src="characterPortrait" />
+              </v-avatar>
+            </v-chip>
+          </p>
+        </v-flex>
+      </v-layout>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-layout row>
@@ -76,7 +99,11 @@ export default {
   },
 
   props: {
-    ...moveProps
+    ...moveProps,
+    characterPortrait: {
+      type: String,
+      default: ''
+    }
   },
 
   methods: {
@@ -88,3 +115,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .custom-pill {
+    cursor: pointer
+  }
+
+  .custom-pill:before {
+    color: transparent
+  }
+</style>

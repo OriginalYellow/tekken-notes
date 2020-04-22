@@ -3,6 +3,9 @@ query userWithMoves {
     moves {
       name
       characterName
+      character {
+        portrait
+      }
       noteText
       onCounterhit
       onBlock
