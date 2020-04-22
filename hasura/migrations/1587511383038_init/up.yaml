@@ -1,0 +1,102 @@
+- args:
+    tables:
+    - configuration:
+        custom_column_names:
+          button_input: buttonInput
+          created_at: createdAt
+          created_by: createdBy
+          note_text: noteText
+          on_block: onBlock
+          on_counterhit: onCounterhit
+          on_hit: onHit
+          startup_frames: startupFrames
+        custom_root_fields:
+          select_aggregate: moves
+      delete_permissions:
+      - permission:
+          filter:
+            created_by:
+              _eq: x-hasura-user-id
+        role: user
+      insert_permissions:
+      - permission:
+          check:
+            created_by:
+              _eq: x-hasura-user-id
+          columns:
+          - id
+          - name
+          - startup_frames
+          - on_block
+          - on_hit
+          - on_counterhit
+          - button_input
+          - note_text
+          - created_by
+        role: user
+      object_relationships:
+      - name: user
+        using:
+          foreign_key_constraint_on: created_by
+      select_permissions:
+      - permission:
+          columns:
+          - button_input
+          - created_at
+          - created_by
+          - id
+          - name
+          - note_text
+          - on_block
+          - on_counterhit
+          - on_hit
+          - startup_frames
+          filter:
+            created_by:
+              _eq: x-hasura-user-id
+        role: user
+      table:
+        name: move
+        schema: public
+      update_permissions:
+      - permission:
+          columns:
+          - button_input
+          - name
+          - note_text
+          - on_block
+          - on_counterhit
+          - on_hit
+          - startup_frames
+          filter:
+            created_by:
+              _eq: x-hasura-user-id
+        role: user
+    - array_relationships:
+      - name: moves
+        using:
+          foreign_key_constraint_on:
+            column: created_by
+            table:
+              name: move
+              schema: public
+      configuration:
+        custom_column_names:
+          auth0_id: auth0Id
+          last_seen: lastSeen
+        custom_root_fields: {}
+      select_permissions:
+      - permission:
+          columns:
+          - id
+          - auth0_id
+          - last_seen
+          filter:
+            auth0_id:
+              _eq: x-hasura-user-id
+        role: user
+      table:
+        name: user
+        schema: public
+    version: 2
+  type: replace_metadata

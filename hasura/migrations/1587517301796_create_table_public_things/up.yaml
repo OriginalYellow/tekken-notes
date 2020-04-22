@@ -1,0 +1,9 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."things"("id" serial NOT NULL, PRIMARY KEY ("id") );
+  type: run_sql
+- args:
+    name: things
+    schema: public
+  type: add_existing_table_or_view
