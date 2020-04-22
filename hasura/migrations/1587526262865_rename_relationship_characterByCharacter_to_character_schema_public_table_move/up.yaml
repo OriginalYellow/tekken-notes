@@ -1,0 +1,7 @@
+- args:
+    name: characterByCharacter
+    new_name: character
+    table:
+      name: move
+      schema: public
+  type: rename_relationship

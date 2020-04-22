@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."character" ADD COLUMN "portrait" text NOT NULL DEFAULT
+      'https://res.cloudinary.com/dscfugb4z/image/upload/c_crop,h_410,r_max,w_410,x_438,y_158/v1587524324/tekken-notes/characters/master-raven_cczp5p.png';
+  type: run_sql

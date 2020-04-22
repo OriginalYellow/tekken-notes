@@ -1,0 +1,8 @@
+- args:
+    name: character
+    table:
+      name: move_character
+      schema: public
+    using:
+      foreign_key_constraint_on: character_id
+  type: create_object_relationship

@@ -1,0 +1,6 @@
+- args:
+    relationship: moves
+    table:
+      name: character
+      schema: public
+  type: drop_relationship

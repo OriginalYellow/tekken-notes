@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ADD COLUMN "likes" integer NOT NULL DEFAULT 0;
+  type: run_sql

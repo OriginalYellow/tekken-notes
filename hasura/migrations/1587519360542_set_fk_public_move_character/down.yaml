@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."move" drop constraint "move_character_fkey";
+  type: run_sql

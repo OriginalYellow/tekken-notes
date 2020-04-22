@@ -1,0 +1,13 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."move_character"("move_id" integer NOT NULL, "character_id"
+      text NOT NULL, PRIMARY KEY ("move_id","character_id") , FOREIGN KEY ("move_id")
+      REFERENCES "public"."move"("id") ON UPDATE restrict ON DELETE restrict, FOREIGN
+      KEY ("character_id") REFERENCES "public"."character"("value") ON UPDATE restrict
+      ON DELETE restrict);
+  type: run_sql
+- args:
+    name: move_character
+    schema: public
+  type: add_existing_table_or_view

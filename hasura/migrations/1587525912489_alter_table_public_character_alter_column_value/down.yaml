@@ -1,0 +1,10 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."character" DROP CONSTRAINT "character_value_key";
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."character" rename column "name" to "value";
+  type: run_sql

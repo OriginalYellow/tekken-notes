@@ -1,0 +1,10 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ADD COLUMN "game_version" int4;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ALTER COLUMN "game_version" DROP NOT NULL;
+  type: run_sql

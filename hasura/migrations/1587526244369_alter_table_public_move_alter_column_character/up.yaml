@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."move" rename column "character" to "character_name";
+  type: run_sql

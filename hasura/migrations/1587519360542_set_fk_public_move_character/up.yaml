@@ -1,0 +1,10 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: |-
+      alter table "public"."move"
+                 add constraint "move_character_fkey"
+                 foreign key ("character")
+                 references "public"."character"
+                 ("value") on update restrict on delete restrict;
+  type: run_sql
