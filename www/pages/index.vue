@@ -22,9 +22,7 @@
 
 <script>
 import MovesView from '~/components/MovesView'
-// import allMoves from '~/gql/allMoves.gql'
 import userWithMoves from '~/gql/userWithMoves.gql'
-import insertMove from '~/gql/insertMove.gql'
 
 export default {
   components: {
@@ -33,51 +31,14 @@ export default {
 
   data () {
     return {
-      user: null
-    }
-  },
-
-  computed: {
-    moves () {
-      if (!this.user) {
-        return []
-      }
-
-      return this.user[0].moves
+      moves: []
     }
   },
 
   apollo: {
-    user: {
-      query: userWithMoves
-    }
-  },
-
-  methods: {
-    handleInsertMove (newMove) {
-      this.$apollo.mutate({
-        mutation: insertMove,
-        variables: {
-          input: {
-            ...newMove,
-            createdBy: this.$auth.user.sub,
-            buttonInput: newMove.buttonInput.toString()
-          }
-        },
-        // eslint-disable-next-line camelcase
-        update: (
-          store,
-          {
-            data: {
-              insert_move: { returning }
-            }
-          }
-        ) => {
-          const data = store.readQuery({ query: userWithMoves })
-          data.user[0].moves.push(returning[0])
-          store.writeQuery({ query: userWithMoves, data })
-        }
-      })
+    moves: {
+      query: userWithMoves,
+      update: ({ user }) => user[0].moves
     }
   }
 }

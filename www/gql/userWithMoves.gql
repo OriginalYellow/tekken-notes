@@ -2,6 +2,7 @@ query userWithMoves {
   user {
     moves {
       name
+      characterName
       noteText
       onCounterhit
       onBlock

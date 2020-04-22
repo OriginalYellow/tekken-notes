@@ -29,6 +29,7 @@
                 title="Edit move"
                 complete-button-text="save"
                 :name="name"
+                :character-name="characterName"
                 :startup-frames="startupFrames"
                 :on-block="onBlock"
                 :on-hit="onHit"

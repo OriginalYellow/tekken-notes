@@ -3,11 +3,12 @@ mutation insertMove($input: [move_insert_input!]!) {
     objects: $input,
     on_conflict: {
       constraint: move_pkey,
-      update_columns: [name, noteText, onBlock, onCounterhit, onHit, startupFrames, buttonInput]
+      update_columns: [name, characterName, noteText, onBlock, onCounterhit, onHit, startupFrames, buttonInput]
     }) {
     returning {
       id
       name
+      characterName
       noteText
       onBlock
       onCounterhit

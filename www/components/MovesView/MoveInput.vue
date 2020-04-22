@@ -23,7 +23,7 @@
         <v-text-field
           v-model="computedName"
           clearable
-          :label="computedName ? 'name' : false"
+          :label="computedName ? 'name' : ''"
           :error-messages="{
             validations: $v.computedName,
             errorMessages: [
@@ -36,11 +36,20 @@
           @blur="$v.computedName.$touch()"
         />
       </v-card-text>
+
+      <v-card-text>
+        <v-autocomplete
+          v-model="computedCharacterName"
+          :items="characterNames"
+          label="character"
+        />
+      </v-card-text>
+
       <v-card-text>
         <v-text-field
           v-model="computedStartupFrames"
           clearable
-          :label="computedStartupFrames ? 'startup frames' : false"
+          :label="computedStartupFrames ? 'startup frames' : ''"
           :error-messages="{
             validations: $v.computedStartupFrames,
             errorMessages: [
@@ -58,7 +67,7 @@
         <v-text-field
           v-model="computedOnBlock"
           clearable
-          :label="computedOnBlock ? 'frames/effect on block' : false"
+          :label="computedOnBlock ? 'frames/effect on block' : ''"
           :error-messages="{
             validations: $v.computedOnBlock,
             errorMessages: [
@@ -75,7 +84,7 @@
         <v-text-field
           v-model="computedOnHit"
           clearable
-          :label="computedOnHit ? 'frames/effect on hit' : false"
+          :label="computedOnHit ? 'frames/effect on hit' : ''"
           :error-messages="{
             validations: $v.computedOnHit,
             errorMessages: [
@@ -92,7 +101,7 @@
         <v-text-field
           v-model="computedOnCounterhit"
           clearable
-          :label="computedOnCounterhit ? 'frames/effect on counter-hit' : false"
+          :label="computedOnCounterhit ? 'frames/effect on counter-hit' : ''"
           :error-messages="{
             validations: $v.computedOnCounterhit,
             errorMessages: [
@@ -109,7 +118,7 @@
         <v-text-field
           v-model="computedButtonInput"
           clearable
-          :label="computedButtonInput ? 'button input' : false"
+          :label="computedButtonInput ? 'button input' : ''"
           :error-messages="{
             validations: $v.computedButtonInput,
             errorMessages: [
@@ -126,7 +135,7 @@
         <v-text-field
           v-model="computedNoteText"
           clearable
-          :label="computedNoteText ? 'notes' : false"
+          :label="computedNoteText ? 'notes' : ''"
           :error-messages="{
             validations: $v.computedNoteText,
             errorMessages: [
@@ -172,6 +181,7 @@ import {
 
 import { isNilOrEmpty } from 'ramda-adjunct'
 import { integer } from 'vuelidate/lib/validators'
+import charactersWithName from '~/gql/charactersWithName.gql'
 import moveProps from '~/moveProps'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
@@ -204,9 +214,11 @@ export default {
         onHit: null,
         onCounterhit: null,
         buttonInput: null,
-        noteText: null
+        noteText: null,
+        characterName: null
       },
-      dialog: false
+      dialog: false,
+      characterNames: []
     }
   },
 
@@ -239,14 +251,20 @@ export default {
     placeholders () {
       return {
         name: this.name || 'move name',
-        startupFrames: this.startupFrames || 'startup frames',
+        // startupFrames: `${this.startupFrames}` || 'startup frames',
+        startupFrames: this.startupFrames ? this.startupFrames : 'startup frames',
         onBlock: this.onBlock || 'frames or effect on block',
-        onHit: this.onHit || 'frames or effect hit',
+        onHit: this.onHit || 'frames or effect on hit',
         onCounterhit: this.onCounterhit || 'frames or effect on counter-hit',
         buttonInput: this.buttonInput || 'button input',
-        noteText: this.noteText || 'notes'
+        noteText: this.noteText || 'notes',
+        characterName: this.characterName || 'character'
       }
     },
+
+    // characterNames () {
+    //   return this.characters.character.map(x => x.name)
+    // },
 
     computedName: {
       get () {
@@ -255,6 +273,16 @@ export default {
 
       set (val) {
         this.local.name = val
+      }
+    },
+
+    computedCharacterName: {
+      get () {
+        return this.local.characterName || this.characterName || null
+      },
+
+      set (val) {
+        this.local.characterName = val
       }
     },
 
@@ -321,6 +349,13 @@ export default {
     requiredMessage: () => sentenceCase('this field is required')
   },
 
+  apollo: {
+    characterNames: {
+      query: charactersWithName,
+      update: ({ character }) => character.map(x => x.name)
+    }
+  },
+
   watch: {
     dialog (newVal) {
       if (!newVal) {
@@ -347,7 +382,8 @@ export default {
         onHit: this.computedOnHit,
         onCounterhit: this.computedOnCounterhit,
         buttonInput: this.computedButtonInput,
-        noteText: this.computedNoteText
+        noteText: this.computedNoteText,
+        characterName: this.computedCharacterName
       }
 
       if (this.id) {

@@ -1,34 +1,38 @@
 export default {
   name: {
     type: String,
-    required: true
+    default: ''
+  },
+  characterName: {
+    type: String,
+    default: ''
   },
   startupFrames: {
     type: Number,
-    required: true
+    default: NaN
   },
   onBlock: {
     type: String,
-    required: true
+    default: ''
   },
   onHit: {
     type: String,
-    required: true
+    default: ''
   },
   onCounterhit: {
     type: String,
-    required: true
+    default: ''
   },
   buttonInput: {
-    type: Array,
-    required: true
+    type: String,
+    default: ''
   },
   noteText: {
     type: String,
-    default: null
+    default: ''
   },
   id: {
     type: Number,
-    required: true
+    default: NaN
   }
 }

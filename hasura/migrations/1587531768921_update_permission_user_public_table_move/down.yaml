@@ -1,0 +1,30 @@
+- args:
+    role: user
+    table:
+      name: move
+      schema: public
+  type: drop_insert_permission
+- args:
+    permission:
+      check:
+        created_by:
+          _eq: x-hasura-user-id
+      columns:
+      - id
+      - name
+      - startup_frames
+      - on_block
+      - on_hit
+      - on_counterhit
+      - button_input
+      - note_text
+      - created_by
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: user
+    table:
+      name: move
+      schema: public
+  type: create_insert_permission
