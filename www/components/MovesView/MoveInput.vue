@@ -42,6 +42,15 @@
           v-model="computedCharacterName"
           :items="characterNames"
           label="character"
+          :error-messages="{
+            validations: $v.computedCharacterName,
+            errorMessages: [
+              { validationName: 'isNotNilOrEmpty', message: requiredMessage },
+            ]
+            // eslint-disable-next-line vue/no-multi-spaces
+          } | formatErrorMessages"
+          @input="$v.computedCharacterName.$touch()"
+          @blur="$v.computedCharacterName.$touch()"
         />
       </v-card-text>
 
@@ -224,6 +233,9 @@ export default {
 
   validations: {
     computedName: {
+      isNotNilOrEmpty
+    },
+    computedCharacterName: {
       isNotNilOrEmpty
     },
     computedStartupFrames: {
