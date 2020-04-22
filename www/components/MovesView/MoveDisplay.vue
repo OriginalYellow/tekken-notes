@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-expansion-panel>
     <v-expansion-panel-header class="title">
       <v-layout class="mr-5">
         <v-flex>
@@ -85,7 +85,7 @@
         </v-flex>
       </v-layout>
     </v-expansion-panel-content>
-  </div>
+  </v-expansion-panel>
 </template>
 
 <script>
@@ -117,11 +117,11 @@ export default {
 </script>
 
 <style scoped>
-  .custom-pill {
-    cursor: pointer
-  }
+.custom-pill {
+  cursor: pointer;
+}
 
-  .custom-pill:before {
-    color: transparent
-  }
+.custom-pill:before {
+  color: transparent;
+}
 </style>

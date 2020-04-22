@@ -9,15 +9,12 @@
       tag="div"
       style="width: 100%;"
     >
-      <v-expansion-panel
+      <move-display
         v-for="move in sortedMoves"
         :key="move.id"
-      >
-        <move-display
-          v-bind="move"
-          :character-portrait="move.character.portrait"
-        />
-      </v-expansion-panel>
+        v-bind="move"
+        :character-portrait="move.character.portrait"
+      />
     </v-slide-y-transition>
   </v-expansion-panels>
 </template>
