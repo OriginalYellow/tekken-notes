@@ -46,85 +46,15 @@
             {{ noteText }}
           </p>
         </v-card-text>
-        <v-card-actions class="pt-3">
-          <!-- color="pink" -->
-          <!-- @click="insertLike(id)" -->
-          <v-btn
-            :color="likeButton.color"
-            dark
-            depressed
-            small
-            @click="handleLikeClicked"
-          >
-            {{ likeButton.text }}
-            <v-icon
-              small
-              right
-            >
-              mdi-heart
-            </v-icon>
-          </v-btn>
-
-          <v-spacer />
-          <v-btn
-            outlined
-            dark
-            color="red"
-            small
-            @click="deleteMove(id)"
-          >
-            <v-icon small>
-              mdi-delete
-            </v-icon>
-          </v-btn>
-
-          <move-input
-            :id="id"
-            title="Edit move"
-            complete-button-text="save"
-            :name="name"
-            :character-name="characterName"
-            :startup-frames="startupFrames"
-            :on-block="onBlock"
-            :on-hit="onHit"
-            :on-counterhit="onCounterhit"
-            :button-input="buttonInput"
-            :note-text="noteText"
-          >
-            <template v-slot:asdf="{ on }">
-              <v-btn
-                dark
-                color="blue"
-                depressed
-                class="ml-2"
-                small
-                v-on="on"
-              >
-                edit
-                <v-icon
-                  small
-                  right
-                >
-                  mdi-pencil
-                </v-icon>
-              </v-btn>
-            </template>
-          </move-input>
-        </v-card-actions>
       </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import MoveInput from './MoveInput'
 import moveProps from '~/moveProps'
 
 export default {
-  components: {
-    MoveInput
-  },
 
   props: {
     ...moveProps,
@@ -139,33 +69,7 @@ export default {
   },
 
   computed: {
-    paragraphClass: () => ['mb-0'],
-
-    likeButton () {
-      if (this.liked) {
-        return {
-          color: 'pink',
-          text: 'liked'
-        }
-      }
-
-      return {
-        color: 'grey',
-        text: 'like'
-      }
-    }
-  },
-
-  methods: {
-    ...mapActions(['deleteMove', 'insertLike', 'deleteLike']),
-
-    handleLikeClicked () {
-      if (this.liked) {
-        this.deleteLike(this.id)
-      } else {
-        this.insertLike(this.id)
-      }
-    }
+    paragraphClass: () => ['mb-0']
   }
 }
 </script>
