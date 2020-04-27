@@ -14,7 +14,7 @@ import MoveList from './MoveList.vue'
 import latestMoves from '~/gql/latestMoves.gql'
 
 const Model = {
-  moves: lensPath(['user', 0, 'moves'])
+  moves: lensProp('move')
 }
 
 const Move = {
