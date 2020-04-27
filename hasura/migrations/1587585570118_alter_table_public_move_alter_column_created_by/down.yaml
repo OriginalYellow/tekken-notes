@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."move" rename column "created_by_old" to "created_by";
+  type: run_sql

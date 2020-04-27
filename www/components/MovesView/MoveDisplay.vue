@@ -1,14 +1,20 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header class="title">
-      <v-layout class="mr-5">
-        <v-flex>
-          <p class="text-left mb-0">
-            {{ name }}
+      <v-row
+        class="mr-5"
+        no-gutters
+      >
+        <v-col cols="8">
+          <p :class="[...paragraphClass, 'text-left']">
+            {{ `${name}&nbsp;&nbsp;` }}
+            <span class="body-1">—</span>
+            {{ '&nbsp;' }}
+            <span class="body-2 font-italic">{{ likeCount }} {{ likeCount == 1 ? 'like' : 'likes' }}</span>
           </p>
-        </v-flex>
-        <v-flex>
-          <p class="text-right mb-0">
+        </v-col>
+        <v-col cols="4">
+          <div class="d-flex align-end flex-column">
             <v-chip
               pill
               class="custom-pill"
@@ -22,16 +28,14 @@
                 <v-img :src="characterPortrait" />
               </v-avatar>
             </v-chip>
-          </p>
-        </v-flex>
-      </v-layout>
+          </div>
+        </v-col>
+        <!-- mdi-thumb-up -->
+      </v-row>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <v-layout row>
-        <v-flex
-          xs6
-          class="mt-8"
-        >
+      <v-card flat>
+        <v-card-text class="body-1">
           <p>
             {{
               `i${startupFrames}&nbsp;&nbsp;&nbsp;&nbsp;${onBlock} | ${onHit} | ${onCounterhit}
@@ -41,49 +45,73 @@
           <p v-if="!!noteText">
             {{ noteText }}
           </p>
-        </v-flex>
+        </v-card-text>
+        <v-card-actions class="pt-3">
+          <!-- color="pink" -->
+          <!-- @click="insertLike(id)" -->
+          <v-btn
+            :color="likeButton.color"
+            dark
+            depressed
+            small
+            @click="handleLikeClicked"
+          >
+            {{ likeButton.text }}
+            <v-icon
+              small
+              right
+            >
+              mdi-heart
+            </v-icon>
+          </v-btn>
 
-        <v-flex xs6>
-          <v-card flat>
-            <v-card-actions class="pt-3 pr-0">
-              <v-spacer />
-              <move-input
-                :id="id"
-                title="Edit move"
-                complete-button-text="save"
-                :name="name"
-                :character-name="characterName"
-                :startup-frames="startupFrames"
-                :on-block="onBlock"
-                :on-hit="onHit"
-                :on-counterhit="onCounterhit"
-                :button-input="buttonInput"
-                :note-text="noteText"
-              >
-                <template v-slot:asdf="{ on }">
-                  <v-btn
-                    dark
-                    color="blue"
-                    depressed
-                    v-on="on"
-                  >
-                    edit
-                  </v-btn>
-                </template>
-              </move-input>
+          <v-spacer />
+          <v-btn
+            outlined
+            dark
+            color="red"
+            small
+            @click="deleteMove(id)"
+          >
+            <v-icon small>
+              mdi-delete
+            </v-icon>
+          </v-btn>
 
+          <move-input
+            :id="id"
+            title="Edit move"
+            complete-button-text="save"
+            :name="name"
+            :character-name="characterName"
+            :startup-frames="startupFrames"
+            :on-block="onBlock"
+            :on-hit="onHit"
+            :on-counterhit="onCounterhit"
+            :button-input="buttonInput"
+            :note-text="noteText"
+          >
+            <template v-slot:asdf="{ on }">
               <v-btn
-                outlined
                 dark
-                color="red"
-                @click="handleDeleteMove"
+                color="blue"
+                depressed
+                class="ml-2"
+                small
+                v-on="on"
               >
-                delete
+                edit
+                <v-icon
+                  small
+                  right
+                >
+                  mdi-pencil
+                </v-icon>
               </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
+            </template>
+          </move-input>
+        </v-card-actions>
+      </v-card>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -100,17 +128,43 @@ export default {
 
   props: {
     ...moveProps,
+    likeCount: {
+      type: Number,
+      default: NaN
+    },
     characterPortrait: {
       type: String,
       default: ''
     }
   },
 
-  methods: {
-    ...mapActions(['deleteMove']),
+  computed: {
+    paragraphClass: () => ['mb-0'],
 
-    handleDeleteMove () {
-      this.deleteMove(this.id)
+    likeButton () {
+      if (this.liked) {
+        return {
+          color: 'pink',
+          text: 'liked'
+        }
+      }
+
+      return {
+        color: 'grey',
+        text: 'like'
+      }
+    }
+  },
+
+  methods: {
+    ...mapActions(['deleteMove', 'insertLike', 'deleteLike']),
+
+    handleLikeClicked () {
+      if (this.liked) {
+        this.deleteLike(this.id)
+      } else {
+        this.insertLike(this.id)
+      }
     }
   }
 }

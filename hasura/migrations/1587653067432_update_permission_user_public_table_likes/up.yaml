@@ -1,0 +1,12 @@
+- args:
+    permission:
+      allow_aggregations: true
+      columns: []
+      computed_fields: []
+      filter: {}
+      limit: null
+    role: user
+    table:
+      name: likes
+      schema: public
+  type: create_select_permission

@@ -1,0 +1,10 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: |-
+      alter table "public"."move"
+                 add constraint "move_created_by_new_fkey"
+                 foreign key ("created_by_new")
+                 references "public"."user"
+                 ("id") on update restrict on delete restrict;
+  type: run_sql

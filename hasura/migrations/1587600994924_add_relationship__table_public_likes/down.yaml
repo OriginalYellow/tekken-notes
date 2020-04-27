@@ -1,0 +1,6 @@
+- args:
+    relationship: move
+    table:
+      name: likes
+      schema: public
+  type: drop_relationship

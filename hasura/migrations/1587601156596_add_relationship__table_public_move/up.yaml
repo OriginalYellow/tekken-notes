@@ -1,0 +1,12 @@
+- args:
+    name: likes
+    table:
+      name: move
+      schema: public
+    using:
+      foreign_key_constraint_on:
+        column: move_id
+        table:
+          name: likes
+          schema: public
+  type: create_array_relationship

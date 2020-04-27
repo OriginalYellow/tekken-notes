@@ -1,0 +1,10 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: |-
+      alter table "public"."like" drop constraint "likes_user_id_fkey",
+                   add constraint "like_user_id_fkey"
+                   foreign key ("user_id")
+                   references "public"."user"
+                   ("auth0_id") on update restrict on delete cascade;
+  type: run_sql

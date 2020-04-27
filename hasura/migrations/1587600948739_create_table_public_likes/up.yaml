@@ -1,0 +1,13 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: CREATE TABLE "public"."likes"("id" serial NOT NULL, "user_id" text NOT NULL,
+      "move_id" integer NOT NULL, PRIMARY KEY ("user_id","move_id") , FOREIGN KEY
+      ("user_id") REFERENCES "public"."user"("auth0_id") ON UPDATE restrict ON DELETE
+      restrict, FOREIGN KEY ("move_id") REFERENCES "public"."move"("id") ON UPDATE
+      restrict ON DELETE restrict, UNIQUE ("id"));
+  type: run_sql
+- args:
+    name: likes
+    schema: public
+  type: add_existing_table_or_view

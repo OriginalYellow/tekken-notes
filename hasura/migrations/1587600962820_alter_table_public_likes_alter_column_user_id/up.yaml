@@ -1,0 +1,9 @@
+- args:
+    custom_column_names:
+      user_id: userId
+    custom_root_fields: {}
+    table:
+      name: likes
+      schema: public
+  type: set_table_custom_fields
+  version: 2

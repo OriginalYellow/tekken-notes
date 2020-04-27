@@ -1,0 +1,14 @@
+- args:
+    custom_column_names:
+      move_id: moveId
+      user_id: userId
+    custom_root_fields:
+      delete: deleteLike
+      insert: insertLike
+      select_aggregate: likes
+      update: updateLike
+    table:
+      name: like
+      schema: public
+  type: set_table_custom_fields
+  version: 2

@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ADD COLUMN "created_by_new" integer NULL DEFAULT
+      1;
+  type: run_sql

@@ -1,0 +1,23 @@
+- args:
+    custom_column_names:
+      button_input: buttonInput
+      character_name: characterName
+      created_at: createdAt
+      created_by_old: createdByOld
+      note_text: noteText
+      on_block: onBlock
+      on_counterhit: onCounterhit
+      on_hit: onHit
+      startup_frames: startupFrames
+    custom_root_fields:
+      select_aggregate: moves
+    table:
+      name: move
+      schema: public
+  type: set_table_custom_fields
+  version: 2
+- args:
+    cascade: false
+    read_only: false
+    sql: alter table "public"."move" rename column "created_by" to "created_by_old";
+  type: run_sql

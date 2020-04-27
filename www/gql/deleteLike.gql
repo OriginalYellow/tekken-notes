@@ -1,0 +1,5 @@
+mutation deleteLike($moveId: Int, $userId: String) {
+  deleteLike(where: {moveId: {_eq: $moveId}, userId: {_eq: $userId}}) {
+    affected_rows
+  }
+}

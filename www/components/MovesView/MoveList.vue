@@ -13,7 +13,6 @@
         v-for="move in sortedMoves"
         :key="move.id"
         v-bind="move"
-        :character-portrait="move.character.portrait"
       />
     </v-slide-y-transition>
   </v-expansion-panels>

@@ -31,6 +31,10 @@ export default {
     type: String,
     default: ''
   },
+  liked: {
+    type: Boolean,
+    default: false
+  },
   id: {
     type: Number,
     default: NaN

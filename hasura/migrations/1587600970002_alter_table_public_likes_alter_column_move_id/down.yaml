@@ -1,0 +1,14 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."likes" ALTER COLUMN "move_id" TYPE integer;
+  type: run_sql
+- args:
+    custom_column_names:
+      user_id: userId
+    custom_root_fields: {}
+    table:
+      name: likes
+      schema: public
+  type: set_table_custom_fields
+  version: 2

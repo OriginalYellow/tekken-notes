@@ -1,0 +1,31 @@
+- args:
+    role: user
+    table:
+      name: move
+      schema: public
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - button_input
+      - character_name
+      - created_by
+      - game_version
+      - name
+      - note_text
+      - on_block
+      - on_counterhit
+      - on_hit
+      - startup_frames
+      filter:
+        created_by:
+          _eq: x-hasura-user-id
+      localPresets:
+      - key: ""
+        value: ""
+      set: {}
+    role: user
+    table:
+      name: move
+      schema: public
+  type: create_update_permission

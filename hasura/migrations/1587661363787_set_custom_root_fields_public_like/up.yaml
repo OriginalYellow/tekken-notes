@@ -1,0 +1,11 @@
+- args:
+    custom_column_names:
+      move_id: moveId
+      user_id: userId
+    custom_root_fields:
+      select_aggregate: likes
+    table:
+      name: like
+      schema: public
+  type: set_table_custom_fields
+  version: 2

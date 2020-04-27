@@ -264,7 +264,7 @@ export default {
       return {
         name: this.name || 'move name',
         // startupFrames: `${this.startupFrames}` || 'startup frames',
-        startupFrames: this.startupFrames ? this.startupFrames : 'startup frames',
+        startupFrames: this.startupFrames ? `${this.startupFrames}` : 'startup frames',
         onBlock: this.onBlock || 'frames or effect on block',
         onHit: this.onHit || 'frames or effect on hit',
         onCounterhit: this.onCounterhit || 'frames or effect on counter-hit',

@@ -1,0 +1,22 @@
+- args:
+    role: user
+    table:
+      name: like
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - user_id
+      - move_id
+      computed_fields: []
+      filter:
+        user_id:
+          _eq: x-hasura-user-id
+    role: user
+    table:
+      name: like
+      schema: public
+  type: create_select_permission

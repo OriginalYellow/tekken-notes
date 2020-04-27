@@ -1,0 +1,16 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ALTER COLUMN "created_by_new" TYPE integer;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE ONLY "public"."move" ALTER COLUMN "created_by_new" SET DEFAULT
+      1;
+  type: run_sql
+- args:
+    cascade: false
+    read_only: false
+    sql: ALTER TABLE "public"."move" ALTER COLUMN "created_by_new" DROP NOT NULL;
+  type: run_sql
