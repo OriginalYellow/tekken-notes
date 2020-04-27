@@ -1,0 +1,15 @@
+- args:
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - move_id
+      - user_id
+      computed_fields: []
+      filter: {}
+      limit: null
+    role: anonymous
+    table:
+      name: like
+      schema: public
+  type: create_select_permission

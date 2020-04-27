@@ -71,6 +71,7 @@ export default {
     }
   },
   auth: {
+    resetOnError: true,
     redirect: {
       login: '/',
       // logout: '/',
@@ -86,7 +87,7 @@ export default {
     }
   },
   apollo: {
-    tokenName: 'auth._token.auth0',
+    // tokenName: 'auth._token.auth0',
     includeNodeModules: true,
     authenticationType: '',
     defaultOptions: {
@@ -95,16 +96,9 @@ export default {
         fetchPolicy: 'cache-first'
       }
     },
-    errorHandler: '~/plugins/apollo-error-handler.js',
+    errorHandler: '~/plugins/apollo/apollo-error-handler.js',
     clientConfigs: {
-      default: {
-        httpEndpoint: process.env.HASURA_ENDPOINT || 'http://localhost:8080/v1/graphql',
-        httpLinkOptions: {
-          credentials: 'same-origin'
-        },
-        persisting: false, // Optional
-        websocketsOnly: false // Optional
-      }
+      default: '~/plugins/apollo/client-configs/default.js'
     }
   },
   /*

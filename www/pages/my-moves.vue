@@ -7,19 +7,22 @@
       class="py-5 px-3"
     >
       <p class="display-2">
-        Newest Moves
+        My Moves
       </p>
-      <moves-view />
+      <p v-show="!$auth.loggedIn">
+        login or sign up to see your moves and add new ones
+      </p>
+      <my-moves-view v-if="$auth.loggedIn" />
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import MovesView from '~/components/MovesView'
+import MyMovesView from '~/components/MyMovesView'
 
 export default {
   components: {
-    MovesView
+    MyMovesView
   }
 }
 </script>

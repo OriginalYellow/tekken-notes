@@ -1,5 +1,24 @@
 <template>
   <div>
+    <move-input
+      title="Add a new move"
+      complete-button-text="add"
+    >
+      <template v-slot:asdf="{ on }">
+        <v-btn
+          dark
+          absolute
+          bottom
+          right
+          fab
+          color="green"
+          :style="addButtonStyle"
+          v-on="on"
+        >
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
+    </move-input>
     <move-list
       multiple
       :moves="moves"
@@ -11,7 +30,8 @@
 import { lensPath, lensProp, into, compose, map, over, view, pipe, isEmpty, not } from 'ramda'
 import { renameKeys } from 'ramda-adjunct'
 import MoveList from './MoveList.vue'
-import latestMoves from '~/gql/latestMoves.gql'
+import MoveInput from './MoveInput.vue'
+import userWithMoves from '~/gql/userWithMoves.gql'
 
 const Model = {
   moves: lensPath(['user', 0, 'moves'])
@@ -60,7 +80,8 @@ const getTransformedMoves = pipe(
 
 export default {
   components: {
-    MoveList
+    MoveList,
+    MoveInput
   },
 
   data () {
@@ -72,17 +93,10 @@ export default {
     }
   },
 
-  // apollo: {
-  //   moves: {
-  //     query: latestMoves,
-  //     update: getTransformedMoves
-  //   }
-  // }
-
   // MIKE: this is kinda ghetto
   created () {
     this.$apollo.addSmartQuery('moves', {
-      query: latestMoves,
+      query: userWithMoves,
       variables: {
         // MIKE: this is kinda ghetto especially
         userId: this.$auth.user ? this.$auth.user.sub : ''
@@ -91,5 +105,11 @@ export default {
     })
   }
 
+  // apollo: {
+  //   moves: {
+  //     query: userWithMoves,
+  //     update: getTransformedMoves
+  //   }
+  // }
 }
 </script>
