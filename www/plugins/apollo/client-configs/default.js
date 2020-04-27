@@ -1,6 +1,6 @@
 export default function (context) {
   return {
-    httpEndpoint: process.env.HASURA_ENDPOINT || 'http://localhost:8080/v1/graphql',
+    httpEndpoint: context.env.HASURA_ENDPOINT || 'http://localhost:8080/v1/graphql',
     getAuth: () => {
       // NOTE: if getAuth returns a falsy value, no "authorization" header is
       // sent at all
