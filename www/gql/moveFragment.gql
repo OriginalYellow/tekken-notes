@@ -1,0 +1,20 @@
+fragment move on move{
+  name
+  characterName
+  character {
+    portrait
+  }
+  noteText
+  onCounterhit
+  onBlock
+  onHit
+  startupFrames
+  buttonInput
+  createdAt
+  id
+  likes_aggregate {
+    aggregate {
+      count
+    }
+  }
+}

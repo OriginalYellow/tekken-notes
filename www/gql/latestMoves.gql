@@ -1,23 +1,7 @@
+#import "./movefragment.gql"
 query latestMoves($userId: String) {
   move(order_by: {createdAt: desc}, limit: 10) {
-    name
-    characterName
-    character {
-      portrait
-    }
-    noteText
-    onCounterhit
-    onBlock
-    onHit
-    startupFrames
-    buttonInput
-    createdAt
-    id
+    ...move
     liked(args: {user_id: $userId})
-    likes_aggregate {
-      aggregate {
-        count
-      }
-    }
   }
 }

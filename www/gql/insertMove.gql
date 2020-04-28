@@ -1,3 +1,4 @@
+#import "./movefragment.gql"
 mutation insertMove($input: [move_insert_input!]!, $userId: String) {
   insert_move(
     objects: $input,
@@ -6,25 +7,8 @@ mutation insertMove($input: [move_insert_input!]!, $userId: String) {
       update_columns: [name, characterName, noteText, onBlock, onCounterhit, onHit, startupFrames, buttonInput]
     }) {
     returning {
-      id
-      name
-      characterName
-      character {
-        portrait
-      }
-      noteText
-      onBlock
-      onCounterhit
-      onHit
-      startupFrames
-      buttonInput
-      createdAt
+      ...move
       liked(args: {user_id: $userId})
-      likes_aggregate {
-        aggregate {
-          count
-        }
-      }
     }
   }
 }
