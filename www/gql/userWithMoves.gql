@@ -1,8 +1,24 @@
-#import "./movefragment.gql"
 query userWithMoves($userId: String) {
   user {
     moves {
-      ...move
+      name
+      characterName
+      character {
+        portrait
+      }
+      noteText
+      onCounterhit
+      onBlock
+      onHit
+      startupFrames
+      buttonInput
+      createdAt
+      id
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
       liked(args: {user_id: $userId})
     }
     id

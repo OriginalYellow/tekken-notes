@@ -43,7 +43,6 @@ const removeMoveById = (moves, moveId) => {
   return remove(index, 1, moves)
 }
 
-// eslint-disable-next-line no-unused-vars
 const UserWithMovesModel = {
   moves: lensPath(['user', 0, 'moves'])
 }
@@ -181,6 +180,10 @@ export const actions = {
           })
         )
 
+        const variables = {
+          userId: this.$auth.user.sub
+        }
+
         updateQuery(
           transformMove(
             LatestMovesModel.moves,
@@ -188,9 +191,7 @@ export const actions = {
           ),
           {
             query: latestMoves,
-            variables: {
-              userId: this.$auth.user.sub
-            }
+            variables
           },
           store
         )
@@ -202,57 +203,10 @@ export const actions = {
           ),
           {
             query: userWithMoves,
-            variables: {
-              userId: this.$auth.user.sub
-            }
+            variables
           },
           store
         )
-
-        // eslint-disable-next-line no-unused-vars
-        // const userWithMovesData = store.readQuery({
-        //   query: userWithMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   }
-        // })
-
-        // const latestMovesData = store.readQuery({
-        //   query: latestMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   }
-        // })
-
-        // const userWithMovesMoveIndex = userWithMovesData.user[0].moves.findIndex(
-        //   ({ id }) => id === moveId
-        // )
-
-        // const latestMovesMoveIndex = latestMovesData.move.findIndex(
-        //   ({ id }) => id === moveId
-        // )
-
-        // userWithMovesData.user[0].moves[userWithMovesMoveIndex].likes_aggregate.aggregate.count++
-        // userWithMovesData.user[0].moves[userWithMovesMoveIndex].liked = true
-
-        // latestMovesData.move[latestMovesMoveIndex].likes_aggregate.aggregate.count++
-        // latestMovesData.move[latestMovesMoveIndex].liked = true
-
-        // store.writeQuery({
-        //   query: userWithMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   },
-        //   data: userWithMovesData
-        // })
-
-        // store.writeQuery({
-        //   query: latestMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   },
-        //   data: latestMovesData
-        // })
       }
     })
   },
@@ -278,6 +232,10 @@ export const actions = {
           })
         )
 
+        const variables = {
+          userId: this.$auth.user.sub
+        }
+
         updateQuery(
           transformMove(
             LatestMovesModel.moves,
@@ -285,9 +243,7 @@ export const actions = {
           ),
           {
             query: latestMoves,
-            variables: {
-              userId: this.$auth.user.sub
-            }
+            variables
           },
           store
         )
@@ -299,57 +255,10 @@ export const actions = {
           ),
           {
             query: userWithMoves,
-            variables: {
-              userId: this.$auth.user.sub
-            }
+            variables
           },
           store
         )
-
-        // eslint-disable-next-line no-unused-vars
-        // const userWithMovesData = store.readQuery({
-        //   query: userWithMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   }
-        // })
-
-        // const latestMovesData = store.readQuery({
-        //   query: latestMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   }
-        // })
-
-        // const userWithMovesMoveIndex = userWithMovesData.user[0].moves.findIndex(
-        //   ({ id }) => id === moveId
-        // )
-
-        // const latestMovesMoveIndex = latestMovesData.move.findIndex(
-        //   ({ id }) => id === moveId
-        // )
-
-        // userWithMovesData.user[0].moves[userWithMovesMoveIndex].likes_aggregate.aggregate.count--
-        // userWithMovesData.user[0].moves[userWithMovesMoveIndex].liked = false
-
-        // latestMovesData.move[latestMovesMoveIndex].likes_aggregate.aggregate.count--
-        // latestMovesData.move[latestMovesMoveIndex].liked = false
-
-        // store.writeQuery({
-        //   query: userWithMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   },
-        //   data: userWithMovesData
-        // })
-
-        // store.writeQuery({
-        //   query: latestMoves,
-        //   variables: {
-        //     userId: this.$auth.user.sub
-        //   },
-        //   data: latestMovesData
-        // })
       }
     })
   }
