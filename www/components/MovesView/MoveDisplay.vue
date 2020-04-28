@@ -46,16 +46,55 @@
             {{ noteText }}
           </p>
         </v-card-text>
+        <v-card-actions class="pt-3">
+          <v-btn
+            :color="likeButton.color"
+            dark
+            depressed
+            small
+            @click="handleLikeClicked"
+          >
+            {{ likeButton.text }}
+            <v-icon
+              small
+              right
+            >
+              mdi-heart
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-expansion-panel-content>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="10000"
+    >
+      log in or sign up to like moves
+      <v-btn
+        color="red"
+        outlined
+        @click="snackbar = false"
+      >
+        close
+      </v-btn>
+
+      <v-btn
+        color="blue"
+        depressed
+        dark
+        @click="$auth.loginWith('auth0')"
+      >
+        log in/sign up
+      </v-btn>
+    </v-snackbar>
   </v-expansion-panel>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import moveProps from '~/moveProps'
 
 export default {
-
   props: {
     ...moveProps,
     likeCount: {
@@ -68,8 +107,45 @@ export default {
     }
   },
 
+  data () {
+    return {
+      snackbar: false
+    }
+  },
+
   computed: {
-    paragraphClass: () => ['mb-0']
+    paragraphClass: () => ['mb-0'],
+
+    likeButton () {
+      if (this.liked) {
+        return {
+          color: 'pink',
+          text: 'liked'
+        }
+      }
+
+      return {
+        color: 'grey',
+        text: 'like'
+      }
+    }
+  },
+
+  methods: {
+    ...mapActions(['insertLike', 'deleteLike']),
+
+    handleLikeClicked () {
+      if (!this.$auth.loggedIn) {
+        this.snackbar = true
+        return
+      }
+
+      if (this.liked) {
+        this.deleteLike(this.id)
+      } else {
+        this.insertLike(this.id)
+      }
+    }
   }
 }
 </script>

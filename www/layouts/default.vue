@@ -17,7 +17,7 @@
           depressed
           @click="$auth.loginWith('auth0')"
         >
-          login
+          log in/sign up
         </v-btn>
         <v-btn
           v-show="$auth.loggedIn"
@@ -34,12 +34,12 @@
           <nuxt />
         </v-container>
       </v-content>
-      <v-footer
+      <!-- <v-footer
         :fixed="fixed"
         app
       >
         <span>&copy; {{ new Date().getFullYear() }}</span>
-      </v-footer>
+      </v-footer> -->
     </v-app>
   </client-only>
 </template>

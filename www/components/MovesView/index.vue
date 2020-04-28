@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { lensPath, lensProp, into, compose, map, over, view, pipe, isEmpty, not } from 'ramda'
+import { lensPath, lensProp, into, compose, map, over, view, pipe } from 'ramda'
 import { renameKeys } from 'ramda-adjunct'
 import MoveList from './MoveList.vue'
 import latestMoves from '~/gql/latestMoves.gql'
@@ -43,14 +43,9 @@ const transformMoves = intoArray(
       Move.likesAggregate,
       view(LikesAggregate.count)
     )),
-    map(over(
-      Move.likes,
-      compose(not, isEmpty)
-    )),
     map(renameKeys({
       likes_aggregate: 'likeCount',
-      character: 'characterPortrait',
-      likes: 'liked'
+      character: 'characterPortrait'
     }))))
 
 const getTransformedMoves = pipe(

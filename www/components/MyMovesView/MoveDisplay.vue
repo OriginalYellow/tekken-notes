@@ -47,8 +47,6 @@
           </p>
         </v-card-text>
         <v-card-actions class="pt-3">
-          <!-- color="pink" -->
-          <!-- @click="insertLike(id)" -->
           <v-btn
             :color="likeButton.color"
             dark
