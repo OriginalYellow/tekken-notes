@@ -1,0 +1,8 @@
+- args:
+    comment: null
+    definition: {}
+    name: liked
+    table:
+      name: move
+      schema: public
+  type: add_computed_field

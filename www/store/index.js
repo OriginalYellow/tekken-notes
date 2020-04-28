@@ -26,6 +26,49 @@ const removeMoveById = (moves, moveId) => {
 }
 
 export const actions = {
+  insertMove (_, move) {
+    const apolloClient = this.app.apolloProvider.defaultClient
+
+    apolloClient.mutate({
+      mutation: insertMove,
+      variables: {
+        input: {
+          ...move,
+          createdBy: this.$auth.user.sub
+        },
+        userId: this.$auth.user.sub
+      },
+      update: (
+        store,
+        {
+          data: {
+            insert_move: { returning }
+          }
+        }
+      ) => {
+        const data = store.readQuery({
+          query: userWithMoves,
+          variables: {
+            userId: this.$auth.user.sub
+          }
+        })
+
+        // if move was updated, the cache will be automatically updated, so
+        // return early
+        if (
+          data.user[0].moves.find(
+            ({ id }) => id === returning[0].id
+          )) {
+          return
+        }
+
+        // if a new move was added, add it to the cache manually
+        data.user[0].moves.push(returning[0])
+        store.writeQuery({ query: userWithMoves, data })
+      }
+    })
+  },
+
   deleteMove (_, moveId) {
     const apolloClient = this.app.apolloProvider.defaultClient
 
@@ -56,46 +99,6 @@ export const actions = {
     })
   },
 
-  insertMove (_, move) {
-    const apolloClient = this.app.apolloProvider.defaultClient
-
-    apolloClient.mutate({
-      mutation: insertMove,
-      variables: {
-        input: {
-          ...move,
-          createdBy: this.$auth.user.sub
-          // buttonInput: move.buttonInput.toString()
-        }
-      },
-      update: (
-        store,
-        {
-          data: {
-            insert_move: { returning }
-          }
-        }
-      ) => {
-        const data = store.readQuery({
-          query: userWithMoves,
-          variables: {
-            userId: this.$auth.user.sub
-          }
-        })
-
-        if (
-          data.user[0].moves.find(
-            ({ id }) => id === returning[0].id
-          )) {
-          return
-        }
-
-        data.user[0].moves.push(returning[0])
-        store.writeQuery({ query: userWithMoves, data })
-      }
-    })
-  },
-
   insertLike (_, moveId) {
     const apolloClient = this.app.apolloProvider.defaultClient
 
@@ -107,14 +110,7 @@ export const actions = {
           userId: this.$auth.user.sub
         }
       },
-      update: (
-        store,
-        {
-          data: {
-            insertLike: { returning }
-          }
-        }
-      ) => {
+      update: (store) => {
         const data = store.readQuery({
           query: userWithMoves,
           variables: {
@@ -127,7 +123,7 @@ export const actions = {
         )
 
         data.user[0].moves[moveIndex].likes_aggregate.aggregate.count++
-        data.user[0].moves[moveIndex].likes.push(returning[0])
+        data.user[0].moves[moveIndex].liked = true
 
         store.writeQuery({
           query: userWithMoves,
@@ -162,7 +158,7 @@ export const actions = {
         )
 
         data.user[0].moves[moveIndex].likes_aggregate.aggregate.count--
-        data.user[0].moves[moveIndex].likes = []
+        data.user[0].moves[moveIndex].liked = false
 
         store.writeQuery({
           query: userWithMoves,

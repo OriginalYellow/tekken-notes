@@ -1,0 +1,5 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: DROP FUNCTION move_liked_by_user;
+  type: run_sql

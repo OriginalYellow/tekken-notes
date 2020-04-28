@@ -1,9 +1,5 @@
 mutation insertLike($input: [like_insert_input!]!) {
   insertLike(objects: $input) {
-    returning {
-      userId
-      moveId
-      id
-    }
+    affected_rows
   }
 }

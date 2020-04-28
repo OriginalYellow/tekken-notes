@@ -1,0 +1,8 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: "CREATE FUNCTION move_liked_by_user(move_row move, user_id text)\r\nRETURNS
+      boolean AS $$\r\nSELECT EXISTS (\r\n    SELECT 1\r\n    FROM public.like A\r\n
+      \   WHERE A.user_id = move_liked_by_user.user_id AND A.move_id = move_row.id\r\n);\r\n$$ LANGUAGE
+      sql STABLE;"
+  type: run_sql

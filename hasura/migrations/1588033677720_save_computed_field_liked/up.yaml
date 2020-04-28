@@ -1,0 +1,13 @@
+- args:
+    comment: ""
+    definition:
+      function:
+        name: move_liked_by_user
+        schema: public
+      table_argument: move_row
+      session_argument: hasura_session
+    name: liked
+    table:
+      name: move
+      schema: public
+  type: add_computed_field

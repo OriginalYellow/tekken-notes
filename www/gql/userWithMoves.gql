@@ -14,15 +14,11 @@ query userWithMoves($userId: String) {
       buttonInput
       createdAt
       id
+      liked(args: {user_id: $userId})
       likes_aggregate {
         aggregate {
           count
         }
-      }
-      likes(where: {userId: {_eq: $userId}}) {
-        userId
-        moveId
-        id
       }
     }
     id

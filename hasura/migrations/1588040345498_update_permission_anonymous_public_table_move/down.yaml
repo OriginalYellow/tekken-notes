@@ -1,0 +1,31 @@
+- args:
+    role: anonymous
+    table:
+      name: move
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - button_input
+      - character_name
+      - created_at
+      - created_by
+      - game_version
+      - id
+      - name
+      - note_text
+      - on_block
+      - on_counterhit
+      - on_hit
+      - startup_frames
+      computed_fields:
+      - liked
+      filter: {}
+      limit: 10
+    role: anonymous
+    table:
+      name: move
+      schema: public
+  type: create_select_permission

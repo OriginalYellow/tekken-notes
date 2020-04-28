@@ -1,4 +1,4 @@
-mutation insertMove($input: [move_insert_input!]!) {
+mutation insertMove($input: [move_insert_input!]!, $userId: String) {
   insert_move(
     objects: $input,
     on_conflict: {
@@ -19,6 +19,12 @@ mutation insertMove($input: [move_insert_input!]!) {
       startupFrames
       buttonInput
       createdAt
+      liked(args: {user_id: $userId})
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
     }
   }
 }
