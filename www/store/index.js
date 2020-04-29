@@ -23,8 +23,16 @@ import {
   dec,
   T,
   F,
-  find
+  find,
+  append,
+  reverse,
+  always,
+  thunkify,
+  pipe
 } from 'ramda'
+
+import { reduceIndexed } from 'ramda-adjunct'
+import { either, Right, Left } from 'Sanctuary'
 
 import userWithMoves from '~/gql/userWithMoves.gql'
 import latestMoves from '~/gql/latestMoves.gql'
@@ -42,6 +50,28 @@ const removeMoveById = (moves, moveId) => {
 
   return remove(index, 1, moves)
 }
+
+// takes an array of thunks
+const updateCacheReducer = (acc, el, i, list) => {
+  if (i === 0) {
+    return acc(el)
+  } else if (i < list.length - 1) {
+    return func => acc(either(el)(Right)(func))
+  }
+  return acc(el())
+}
+
+const initialAcc = func => either(func)(Right)
+
+// takes an array of thunks
+const executeUpdates = pipe(
+  reverse,
+  reduceIndexed(
+    updateCacheReducer,
+    initialAcc
+  ),
+  either(always(Left('all cache updates failed')))(Right)
+)
 
 const UserWithMovesModel = {
   moves: lensPath(['user', 0, 'moves'])
@@ -70,19 +100,24 @@ const LikesAggregate = {
 }
 
 const updateQuery = (transformData, queryInfo, store) => {
+  const operation = queryInfo.query.definitions[0]
+  const operationName = operation && operation.name.value
+
   try {
     const data = store.readQuery(queryInfo)
+
     store.writeQuery({
       ...queryInfo,
       data: transformData(data)
     })
+
+    return Right(`update ${operationName} succeeded`)
   } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log(e)
-    // eslint-disable-next-line no-console
-    console.log('Not updating store - Projects not loaded yet')
+    return Left(`update ${operationName} failed`)
   }
 }
+
+const updateQueryThunkified = thunkify(updateQuery)
 
 export const actions = {
   insertMove (_, move) {
@@ -122,8 +157,35 @@ export const actions = {
         }
 
         // if a new move was added, add it to the cache manually
-        data.user[0].moves.push(returning[0])
-        store.writeQuery({ query: userWithMoves, data })
+        const variables = {
+          userId: this.$auth.user.sub
+        }
+
+        const appendMove = append(returning[0])
+
+        updateQuery(
+          over(
+            UserWithMovesModel.moves,
+            appendMove
+          ),
+          {
+            query: userWithMoves,
+            variables
+          },
+          store
+        )
+
+        updateQuery(
+          over(
+            LatestMovesModel.moves,
+            appendMove
+          ),
+          {
+            query: latestMoves,
+            variables
+          },
+          store
+        )
       }
     })
   },
@@ -184,28 +246,37 @@ export const actions = {
           userId: this.$auth.user.sub
         }
 
-        updateQuery(
-          transformMove(
-            LatestMovesModel.moves,
-            moveId
+        const updateQueryThunks = [
+          updateQueryThunkified(
+            transformMove(
+              LatestMovesModel.moves,
+              moveId
+            ),
+            {
+              query: latestMoves,
+              variables
+            },
+            store
           ),
-          {
-            query: latestMoves,
-            variables
-          },
-          store
-        )
+          updateQueryThunkified(
+            transformMove(
+              UserWithMovesModel.moves,
+              moveId
+            ),
+            {
+              query: userWithMoves,
+              variables
+            },
+            store
+          )
+        ]
 
-        updateQuery(
-          transformMove(
-            UserWithMovesModel.moves,
-            moveId
-          ),
-          {
-            query: userWithMoves,
-            variables
-          },
-          store
+        either(
+          x => console.log(x)
+        )(
+          x => console.log(x)
+        )(
+          executeUpdates(updateQueryThunks)
         )
       }
     })
@@ -236,28 +307,37 @@ export const actions = {
           userId: this.$auth.user.sub
         }
 
-        updateQuery(
-          transformMove(
-            LatestMovesModel.moves,
-            moveId
+        const updateQueryThunks = [
+          updateQueryThunkified(
+            transformMove(
+              LatestMovesModel.moves,
+              moveId
+            ),
+            {
+              query: latestMoves,
+              variables
+            },
+            store
           ),
-          {
-            query: latestMoves,
-            variables
-          },
-          store
-        )
+          updateQueryThunkified(
+            transformMove(
+              UserWithMovesModel.moves,
+              moveId
+            ),
+            {
+              query: userWithMoves,
+              variables
+            },
+            store
+          )
+        ]
 
-        updateQuery(
-          transformMove(
-            UserWithMovesModel.moves,
-            moveId
-          ),
-          {
-            query: userWithMoves,
-            variables
-          },
-          store
+        either(
+          x => console.log(x)
+        )(
+          x => console.log(x)
+        )(
+          executeUpdates(updateQueryThunks)
         )
       }
     })
