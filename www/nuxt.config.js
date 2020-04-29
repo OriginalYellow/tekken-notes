@@ -16,7 +16,7 @@ export default {
     ]
   },
   env: {
-    baseUrlEncoded: process.env.BASE_URL_ENCODED || 'http%3A%2F%2Flocalhost:3000%2F',
+    baseUrlEncoded: process.env.BASE_URL_ENCODED || 'http%3A%2F%2Flocalhost:3000%2Floading',
     hasuraEndpoint: process.env.HASURA_ENDPOINT || 'http://localhost:8080/v1/graphql'
   },
   /*
@@ -75,8 +75,8 @@ export default {
     resetOnError: true,
     redirect: {
       login: '/',
-      // logout: '/',
-      callback: '/',
+      logout: '/',
+      callback: '/loading',
       home: '/'
     },
     strategies: {

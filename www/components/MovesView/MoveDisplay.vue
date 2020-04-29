@@ -90,7 +90,7 @@
         color="blue"
         depressed
         dark
-        @click="$auth.loginWith('auth0')"
+        @click="handleLogin"
       >
         log in/sign up
       </v-btn>
@@ -141,6 +141,13 @@ export default {
 
   methods: {
     ...mapActions(['insertLike', 'deleteLike']),
+
+    handleLogin () {
+      this.$apolloHelpers.onLogin()
+        .then(() => {
+          this.$auth.loginWith('auth0')
+        })
+    },
 
     handleLikeClicked () {
       if (!this.$auth.loggedIn) {

@@ -35,7 +35,7 @@
           color="blue"
           dark
           depressed
-          @click="$auth.loginWith('auth0')"
+          @click="handleLogin"
         >
           log in/sign up
         </v-btn>
@@ -103,12 +103,25 @@ export default {
   },
 
   methods: {
+    handleLogin () {
+      this.$apolloHelpers.onLogin()
+        .then(() => {
+          this.$auth.loginWith('auth0')
+        })
+    },
+
     handleLogout () {
-      this.$auth.logout().then(() => {
-        window.location.replace(
+      this.$apolloHelpers.onLogout()
+        .then(() => {
+          return this.$auth.logout()
+        }).then(() => {
+          window.location.replace(
           `https://tekken-notes-production.auth0.com/v2/logout?returnTo=${process.env.baseUrlEncoded}`
-        )
-      })
+          )
+        })
+
+      // this.$auth.logout().then(() => {
+      // })
     }
   }
 }
