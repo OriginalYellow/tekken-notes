@@ -3,7 +3,7 @@
   "build": {
     "env": {
       "HASURA_ENDPOINT": "https://hasura.michaeljoseph.dev/v1/graphql",
-      "BASE_URL_ENCODED": "https%3A%2F%2Ftekken-notes.now.sh%2F"
+      "BASE_URL_ENCODED": "https%3A%2F%2Ftekken-notes.now.sh%2Floading"
     }
   },
   "builds": [
