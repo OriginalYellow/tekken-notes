@@ -9,7 +9,7 @@
 // }
 
 import {
-  remove,
+  reject,
   findIndex,
   propEq,
   lensProp,
@@ -41,16 +41,6 @@ import deleteMove from '~/gql/deleteMove.gql'
 import insertLike from '~/gql/insertLike.gql'
 import deleteLike from '~/gql/deleteLike.gql'
 
-const removeMoveById = (moves, moveId) => {
-  const index = findIndex(propEq('id', moveId), moves)
-
-  if (!~index) {
-    throw new Error(`move with id ${moveId} cannot be removed - id was not found`)
-  }
-
-  return remove(index, 1, moves)
-}
-
 // takes an array of thunks
 const updateCacheReducer = (acc, el, i, list) => {
   if (i === 0) {
@@ -64,7 +54,7 @@ const updateCacheReducer = (acc, el, i, list) => {
 const initialAcc = func => either(func)(Right)
 
 // takes an array of thunks
-const executeUpdates = pipe(
+const updateQueryOnce = pipe(
   reverse,
   reduceIndexed(
     updateCacheReducer,
@@ -100,6 +90,7 @@ const LikesAggregate = {
 }
 
 const updateQuery = (transformData, queryInfo, store) => {
+  // https://stackoverflow.com/questions/58337364/how-to-get-the-name-of-a-query-from-a-gql-object
   const operation = queryInfo.query.definitions[0]
   const operationName = operation && operation.name.value
 
@@ -189,6 +180,7 @@ export const actions = {
 
   deleteMove (_, moveId) {
     const apolloClient = this.app.apolloProvider.defaultClient
+    const userId = this.$auth.user.sub
 
     apolloClient.mutate({
       mutation: deleteMove,
@@ -203,15 +195,32 @@ export const actions = {
           }
         }
       ) => {
-        const data = store.readQuery({
-          query: userWithMoves,
-          variables: {
-            userId: this.$auth.user.sub
-          }
-        })
+        const variables = { userId }
+        const rejectMove = reject(propEq('id', moveId))
 
-        data.user[0].moves = removeMoveById(data.user[0].moves, returning[0].id)
-        store.writeQuery({ query: userWithMoves, data })
+        updateQuery(
+          over(
+            UserWithMovesModel.moves,
+            rejectMove
+          ),
+          {
+            query: userWithMoves,
+            variables
+          },
+          store
+        )
+
+        updateQuery(
+          over(
+            LatestMovesModel.moves,
+            rejectMove
+          ),
+          {
+            query: latestMoves,
+            variables
+          },
+          store
+        )
       }
     })
   },
@@ -272,7 +281,7 @@ export const actions = {
         )(
           x => console.log(x)
         )(
-          executeUpdates(updateQueryThunks)
+          updateQueryOnce(updateQueryThunks)
         )
       }
     })
@@ -333,7 +342,7 @@ export const actions = {
         )(
           x => console.log(x)
         )(
-          executeUpdates(updateQueryThunks)
+          updateQueryOnce(updateQueryThunks)
         )
       }
     })
