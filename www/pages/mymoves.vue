@@ -2,14 +2,17 @@
   <v-layout>
     <v-flex
       xs12
-      sm11
+      sm8
       md6
       class="py-5 px-3"
     >
       <p class="display-2">
-        Newest Moves
+        My Moves
       </p>
-      <moves-view :moves="moves" />
+      <p v-show="!$auth.loggedIn">
+        login or sign up to see your moves and add new ones
+      </p>
+      <my-moves-view v-if="$auth.loggedIn" :moves="moves" />
     </v-flex>
   </v-layout>
 </template>
@@ -17,11 +20,11 @@
 <script>
 import { lensPath, lensProp, into, compose, map, over, view, pipe } from 'ramda'
 import { renameKeys } from 'ramda-adjunct'
-import MovesView from '~/components/MovesView'
-import latestMoves from '~/gql/latestMoves.gql'
+import MyMovesView from '~/components/MyMovesView'
+import userWithMoves from '~/gql/userWithMoves.gql'
 
 const Model = {
-  moves: lensProp('move')
+  moves: lensPath(['user', 0, 'moves'])
 }
 
 const Move = {
@@ -62,7 +65,7 @@ const getTransformedMoves = pipe(
 
 export default {
   components: {
-    MovesView
+    MyMovesView
   },
 
   data () {
@@ -74,7 +77,7 @@ export default {
   // MIKE: this is kinda ghetto
   created () {
     this.$apollo.addSmartQuery('moves', {
-      query: latestMoves,
+      query: userWithMoves,
       variables: {
         // MIKE: this is kinda ghetto especially
         userId: this.$auth.user ? this.$auth.user.sub : ''

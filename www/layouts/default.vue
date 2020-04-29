@@ -6,7 +6,6 @@
         fixed
         app
       >
-        <!-- <v-toolbar-items v-if="$vuetify.breakpoint.mdAndUp"> -->
         <v-toolbar-items>
           <!-- navigation buttons -->
           <v-btn
@@ -19,7 +18,7 @@
           </v-btn>
 
           <v-btn
-            :to="{ path: '/my-moves'}"
+            :to="{ path: '/mymoves'}"
             text
             color="blue"
             nuxt
@@ -79,12 +78,6 @@
           <nuxt />
         </v-container>
       </v-content>
-      <!-- <v-footer
-        :fixed="fixed"
-        app
-      >
-        <span>&copy; {{ new Date().getFullYear() }}</span>
-      </v-footer> -->
     </v-app>
   </client-only>
 </template>
@@ -119,9 +112,6 @@ export default {
           `https://tekken-notes-production.auth0.com/v2/logout?returnTo=${process.env.baseUrlEncoded}`
           )
         })
-
-      // this.$auth.logout().then(() => {
-      // })
     }
   }
 }
