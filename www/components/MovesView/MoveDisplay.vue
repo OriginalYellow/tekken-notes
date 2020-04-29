@@ -5,7 +5,7 @@
         class="mr-5"
         no-gutters
       >
-        <v-col cols="8">
+        <v-col :cols="$vuetify.breakpoint.xsOnly ? 11 : 8">
           <p :class="[...paragraphClass, 'text-left']">
             {{ `${name}&nbsp;&nbsp;` }}
             <span class="body-1">—</span>
@@ -13,9 +13,17 @@
             <span class="body-2 font-italic">{{ likeCount }} {{ likeCount == 1 ? 'like' : 'likes' }}</span>
           </p>
         </v-col>
-        <v-col cols="4">
+        <v-col :cols="$vuetify.breakpoint.xsOnly ? 1 : 4">
           <div class="d-flex align-end flex-column">
+            <v-avatar
+              v-if="$vuetify.breakpoint.xsOnly"
+              size="35"
+            >
+              <v-img :src="characterPortrait" />
+            </v-avatar>
+
             <v-chip
+              v-else
               pill
               class="custom-pill"
               color="blue lighten-4"

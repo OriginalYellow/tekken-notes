@@ -63,6 +63,8 @@
               </v-list-item-title>
             </v-list-item>
 
+            <v-divider />
+
             <v-list-item @click="handleLogout">
               <v-spacer />
               <v-list-item-title class="red--text">

@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex
       xs12
-      sm8
+      sm11
       md6
       class="py-5 px-3"
     >
