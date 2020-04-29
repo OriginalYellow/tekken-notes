@@ -122,15 +122,16 @@ const updateQueryThunkified = thunkify(updateQuery)
 export const actions = {
   insertMove (_, move) {
     const apolloClient = this.app.apolloProvider.defaultClient
+    const userId = this.$auth.user.sub
 
     apolloClient.mutate({
       mutation: insertMove,
       variables: {
         input: {
           ...move,
-          createdBy: this.$auth.user.sub
+          createdBy: userId
         },
-        userId: this.$auth.user.sub
+        userId
       },
       update: (
         store,
@@ -140,11 +141,11 @@ export const actions = {
           }
         }
       ) => {
+        const variables = { userId }
+
         const data = store.readQuery({
           query: userWithMoves,
-          variables: {
-            userId: this.$auth.user.sub
-          }
+          variables
         })
 
         // if move was updated, the cache will be automatically updated, so
@@ -157,10 +158,6 @@ export const actions = {
         }
 
         // if a new move was added, add it to the cache manually
-        const variables = {
-          userId: this.$auth.user.sub
-        }
-
         const appendMove = append(returning[0])
 
         updateQuery(
@@ -222,18 +219,19 @@ export const actions = {
   insertLike (_, moveId) {
     const apolloClient = this.app.apolloProvider.defaultClient
 
+    const userId = this.$auth.user.sub
     apolloClient.mutate({
       mutation: insertLike,
       variables: {
         input: {
           moveId,
-          userId: this.$auth.user.sub
+          userId
         }
       },
       update: (store) => {
-        const transformMove = (moveLens, id) => over(
+        const transformMove = (movesLens, id) => over(
           compose(
-            moveLens,
+            movesLens,
             Moves.moveById(id)
           ),
           evolve({
@@ -242,9 +240,7 @@ export const actions = {
           })
         )
 
-        const variables = {
-          userId: this.$auth.user.sub
-        }
+        const variables = { userId }
 
         const updateQueryThunks = [
           updateQueryThunkified(
@@ -285,16 +281,18 @@ export const actions = {
   deleteLike (_, moveId) {
     const apolloClient = this.app.apolloProvider.defaultClient
 
+    const userId = this.$auth.user.sub
+
     apolloClient.mutate({
       mutation: deleteLike,
       variables: {
         moveId,
-        userId: this.$auth.user.sub
+        userId
       },
       update: (store) => {
-        const transformMove = (moveLens, id) => over(
+        const transformMove = (movesLens, id) => over(
           compose(
-            moveLens,
+            movesLens,
             Moves.moveById(id)
           ),
           evolve({
@@ -303,9 +301,7 @@ export const actions = {
           })
         )
 
-        const variables = {
-          userId: this.$auth.user.sub
-        }
+        const variables = { userId }
 
         const updateQueryThunks = [
           updateQueryThunkified(
