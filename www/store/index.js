@@ -32,7 +32,7 @@ import {
 } from 'ramda'
 
 import { reduceIndexed } from 'ramda-adjunct'
-import { either, Right, Left } from 'Sanctuary'
+import { either, Right, Left } from 'sanctuary'
 
 import userWithMoves from '~/gql/userWithMoves.gql'
 import latestMoves from '~/gql/latestMoves.gql'
