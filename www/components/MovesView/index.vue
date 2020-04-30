@@ -1,7 +1,7 @@
 <template>
   <div>
     <move-input
-      v-show="editable"
+      v-if="editable"
       title="Add a new move"
       complete-button-text="add"
     >
