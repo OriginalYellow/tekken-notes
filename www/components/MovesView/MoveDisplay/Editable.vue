@@ -124,7 +124,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import MoveInput from './MoveInput'
+import MoveInput from '../MoveInput'
 import moveProps from '~/moveProps'
 
 export default {

@@ -15,7 +15,16 @@
 </template>
 
 <script>
-import { lensPath, lensProp, into, compose, map, over, view, pipe } from 'ramda'
+import {
+  lensPath,
+  lensProp,
+  into,
+  compose,
+  map,
+  over,
+  view,
+  pipe
+} from 'ramda'
 import { renameKeys } from 'ramda-adjunct'
 import MovesView from '~/components/MovesView'
 import latestMoves from '~/gql/latestMoves.gql'
@@ -42,23 +51,18 @@ const intoArray = into([])
 
 const transformMoves = intoArray(
   compose(
-    map(over(
-      Move.character,
-      view(Character.portrait)
-    )),
-    map(over(
-      Move.likesAggregate,
-      view(LikesAggregate.count)
-    )),
-    map(renameKeys({
-      likes_aggregate: 'likeCount',
-      character: 'characterPortrait'
-    }))))
-
-const getTransformedMoves = pipe(
-  view(Model.moves),
-  transformMoves
+    map(over(Move.character, view(Character.portrait))),
+    map(over(Move.likesAggregate, view(LikesAggregate.count))),
+    map(
+      renameKeys({
+        likes_aggregate: 'likeCount',
+        character: 'characterPortrait'
+      })
+    )
+  )
 )
+
+const getTransformedMoves = pipe(view(Model.moves), transformMoves)
 
 export default {
   components: {

@@ -5,11 +5,25 @@
     focusable
   >
     <v-slide-y-transition
+      v-if="editable"
       group
       tag="div"
       style="width: 100%;"
     >
-      <move-display
+      <move-display-editable
+        v-for="move in sortedMoves"
+        :key="move.id"
+        v-bind="move"
+      />
+    </v-slide-y-transition>
+
+    <v-slide-y-transition
+      v-else
+      group
+      tag="div"
+      style="width: 100%;"
+    >
+      <move-display-read-only
         v-for="move in sortedMoves"
         :key="move.id"
         v-bind="move"
@@ -19,7 +33,8 @@
 </template>
 
 <script>
-import MoveDisplay from './MoveDisplay.vue'
+import MoveDisplayEditable from './MoveDisplay/Editable.vue'
+import MoveDisplayReadOnly from './MoveDisplay/ReadOnly.vue'
 
 const sortByCreated = (moves, ascending = true) => {
   return moves.sort(({ createdAt: ts1 }, { createdAt: ts2 }) => {
@@ -33,13 +48,18 @@ const sortByCreated = (moves, ascending = true) => {
 
 export default {
   components: {
-    MoveDisplay
+    MoveDisplayEditable,
+    MoveDisplayReadOnly
   },
 
   props: {
     moves: {
       type: Array,
       default: () => []
+    },
+    editable: {
+      type: Boolean,
+      default: false
     }
   },
 
