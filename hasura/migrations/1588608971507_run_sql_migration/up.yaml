@@ -1,0 +1,6 @@
+- args:
+    cascade: false
+    read_only: false
+    sql: "ALTER TABLE public.move\r\nADD CONSTRAINT original_move_fkey FOREIGN KEY
+      (original_move) REFERENCES public.move (id);"
+  type: run_sql

@@ -1,0 +1,712 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`" 2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 5,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"1 or 4, 2" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 9,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "4",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"1+3 (cancel) or 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 17,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "3",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": "cancel",
+    },
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"1+3 (cancel)" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 12,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "3",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": "cancel",
+    },
+  ],
+}
+`;
+
+exports[`"1+3, when hit 2+1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 17,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "3",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": "when hit",
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"DMN jump rage 2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 18,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "stance",
+          "val": "dmn",
+        },
+        Object {
+          "type": "other",
+          "val": "jump",
+        },
+        Object {
+          "type": "other",
+          "val": "rage",
+        },
+      ],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"dmn in rage 2+4, 1~4+3, 1 or 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 30,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "4",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": "~",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "4",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "3",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "stance",
+          "val": "dmn",
+        },
+        Object {
+          "type": "other",
+          "val": "rage",
+        },
+      ],
+      "suffixCondition": null,
+    },
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"dmn in rage 2, 1+4 or 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 23,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+              Object {
+                "type": "operator",
+                "val": "+",
+              },
+              Object {
+                "type": "atom",
+                "val": "4",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "stance",
+          "val": "dmn",
+        },
+        Object {
+          "type": "other",
+          "val": "rage",
+        },
+      ],
+      "suffixCondition": null,
+    },
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"in rage DMN 2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 16,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "other",
+          "val": "rage",
+        },
+        Object {
+          "type": "stance",
+          "val": "dmn",
+        },
+      ],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"jump 2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 9,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "other",
+          "val": "jump",
+        },
+      ],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;
+
+exports[`"rss in rage 2, 1 or 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 21,
+  "isError": false,
+  "result": Array [
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "2",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+        Object {
+          "type": "operator",
+          "val": ",",
+        },
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [
+        Object {
+          "type": "stance",
+          "val": "rss",
+        },
+        Object {
+          "type": "other",
+          "val": "rage",
+        },
+      ],
+      "suffixCondition": null,
+    },
+    Object {
+      "inputMolecules": Array [
+        Object {
+          "type": "molecule",
+          "val": Object {
+            "body": Array [
+              Object {
+                "type": "atom",
+                "val": "1",
+              },
+            ],
+            "prefixCondition": null,
+            "suffixCondition": null,
+          },
+        },
+      ],
+      "prefixConditions": Array [],
+      "suffixCondition": null,
+    },
+  ],
+}
+`;

@@ -1,0 +1,8 @@
+- args:
+    name: move
+    table:
+      name: move
+      schema: public
+    using:
+      foreign_key_constraint_on: original_move
+  type: create_object_relationship

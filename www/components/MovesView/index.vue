@@ -20,6 +20,7 @@
         </v-btn>
       </template>
     </move-input>
+
     <move-list
       multiple
       :moves="moves"

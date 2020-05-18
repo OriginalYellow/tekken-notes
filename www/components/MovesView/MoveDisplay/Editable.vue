@@ -13,6 +13,7 @@
             <span class="body-2 font-italic">{{ likeCount }} {{ likeCount == 1 ? 'like' : 'likes' }}</span>
           </p>
         </v-col>
+
         <v-col :cols="$vuetify.breakpoint.xsOnly ? 1 : 4">
           <div class="d-flex align-end flex-column">
             <v-avatar
@@ -41,6 +42,7 @@
         <!-- mdi-thumb-up -->
       </v-row>
     </v-expansion-panel-header>
+
     <v-expansion-panel-content>
       <v-card flat>
         <v-card-text class="body-1">
@@ -54,6 +56,7 @@
             {{ noteText }}
           </p>
         </v-card-text>
+
         <v-card-actions class="pt-3">
           <v-btn
             :color="likeButton.color"
@@ -72,6 +75,7 @@
           </v-btn>
 
           <v-spacer />
+
           <v-btn
             outlined
             dark

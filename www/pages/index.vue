@@ -9,6 +9,7 @@
       <p class="display-2">
         Newest Moves
       </p>
+
       <moves-view :moves="moves" />
     </v-flex>
   </v-layout>

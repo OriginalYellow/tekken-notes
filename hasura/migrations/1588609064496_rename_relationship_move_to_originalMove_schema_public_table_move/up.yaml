@@ -1,0 +1,7 @@
+- args:
+    name: move
+    new_name: originalMove
+    table:
+      name: move
+      schema: public
+  type: rename_relationship
