@@ -1,6 +1,6 @@
-// import test from 'ava'
-// import { test } from 'jest'
-import { fullCommand } from '../../scratch/scratch-018.js'
+// import * as RA from 'ramda-adjunct'
+// import { fullCommand } from '../../scratch/scratch-018.js'
+import { fullCommand } from '../../parsers/fullCommand.js'
 
 it('"1 or 4, 2" parses correctly', () => {
   const tree = fullCommand.run('1 or 4, 2')
@@ -127,4 +127,9 @@ it('"dmn in rage 2, 1+4 asdf or 1" should error', () => {
 it('"dmn in rage 2,, 1+4 or 1" should error', () => {
   fullCommand.run('dmn in rage 2,, 1+4 or 1').error // ?
   expect(fullCommand.run('dmn in rage 2,, 1+4 or 1').error).toBeTruthy()
+})
+
+it('"in rage" should error', () => {
+  fullCommand.run('in rage ').error // ?
+  expect(fullCommand.run('in rage').error).toBeTruthy()
 })

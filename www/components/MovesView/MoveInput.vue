@@ -124,6 +124,8 @@
         />
       </v-card-text>
       <v-card-text>
+        <!-- { validationName: 'isNotNilOrEmpty', message: requiredMessage }, -->
+
         <v-text-field
           v-model="computedButtonInput"
           clearable
@@ -132,6 +134,7 @@
             validations: $v.computedButtonInput,
             errorMessages: [
               { validationName: 'isNotNilOrEmpty', message: requiredMessage },
+              { validationName: 'invalidMove', message: computedErrorMessageTest },
             ]
             // eslint-disable-next-line vue/no-multi-spaces
           } | formatErrorMessages"
@@ -185,13 +188,19 @@ import {
   tail,
   join,
   reduce,
-  append
+  append,
+  prop,
+  not,
+  ifElse
 } from 'ramda'
+
+import * as RA from 'ramda-adjunct'
 
 import { isNilOrEmpty } from 'ramda-adjunct'
 import { integer } from 'vuelidate/lib/validators'
 import charactersWithName from '~/gql/charactersWithName.gql'
 import moveProps from '~/moveProps'
+import fullCommand from '~/parsers/fullCommand'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
 
@@ -252,7 +261,17 @@ export default {
       isNotNilOrEmpty
     },
     computedButtonInput: {
-      isNotNilOrEmpty
+      isNotNilOrEmpty,
+      invalidMove: pipe(
+        ifElse(
+          RA.isNotString,
+          () => '',
+          x => x
+        ),
+        x => fullCommand.run(x),
+        prop('isError'),
+        not
+      )
     },
     computedNoteText: {
       isNotNilOrEmpty
@@ -260,6 +279,15 @@ export default {
   },
 
   computed: {
+    computedErrorMessageTest () {
+      const ret = this.$validators.fullCommand.run(this.computedButtonInput || '')
+      if (ret.isError) {
+        return ret.error
+      } else {
+        return ''
+      }
+    },
+
     placeholders () {
       return {
         name: this.name || 'move name',

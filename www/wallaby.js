@@ -5,7 +5,7 @@ module.exports = (wallaby) => {
   })
 
   return {
-    files: ['jest.config.js', 'package.json', 'scratch/**/*.js'],
+    files: ['jest.config.js', 'package.json', 'scratch/**/*.js', 'parsers/**/*.js'],
 
     tests: ['__tests__/**/*.spec.js'],
 
