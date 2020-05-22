@@ -1,9 +1,28 @@
+/* eslint-disable func-call-spacing */
 /* eslint-disable no-unused-expressions */
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import * as A from 'arcsecond'
-// import consecutive from './scratch-019'
-import consecutive from '../scratch/scratch-019'
+import consecutive from './consecutive'
+import * as U from './util'
+import {
+  ATOM,
+  MOLECULE,
+  OPERATOR,
+  PREFIX_CONDITION,
+  STANCE_CONDITION,
+  OTHER_CONDITION
+} from './types'
+
+R.if = R.ifElse(R.__, R.__, R.identity)
+
+export const inputAtomRegex = /^[1234]/
+const inputAtomTerminatorRegex = /^\s*(?:[,+~(*]|or|$)/
+const inputMoleculeBodyTerminatorRegex = /^\s*(?:[(,~*]|or|$)/
+const inputMoleculesTerminatorRegex = /^\s*(?:or|[(]|$)/
+const alternativeCommandTerminatorRegex = /^\s*(?=or)/
+const gotStringRegex = /got '(.*)(?='$)/
+const indexStringRegex = /position (\d*)/
 
 const whitespaceSurrounded = parser =>
   A.between(A.optionalWhitespace)(A.optionalWhitespace)(parser)
@@ -11,9 +30,6 @@ const whitespaceSurrounded = parser =>
 const betweenParens = parser =>
   A.between(A.char('('))(A.char(')'))(parser)
 
-const toTypedObj = type => val => ({ type, val })
-const unnest2 = R.pipe(R.unnest, R.unnest)
-const lastIsNull = R.pipe(R.last, RA.isNull)
 const sepByOr = A.sepBy1(whitespaceSurrounded(A.str('or')))
 
 const conditionString = terminator => stringOrArray => A.regex(new RegExp(
@@ -31,18 +47,18 @@ const prefixConditionStrings = R.map(conditionString('\\s'))
 
 const inputAtom = whitespaceSurrounded(
   A.sequenceOf([
-    A.regex(/^[1234]/),
+    A.regex(inputAtomRegex),
     A.lookAhead(A.choice([
-      A.regex(/^\s*(?:[,+~(*]|or|$)/),
+      A.regex(inputAtomTerminatorRegex),
       A.endOfInput
     ]))
   ])
 )
   .map(R.head)
-  .map(toTypedObj('atom'))
+  .map(U.toTypedObj(ATOM))
 
 const inputAtomOperator = A.char('+')
-  .map(toTypedObj('operator'))
+  .map(U.toTypedObj(OPERATOR))
 
 const inputMoleculeBody = A.sequenceOf([
   inputAtom,
@@ -51,21 +67,20 @@ const inputMoleculeBody = A.sequenceOf([
     inputAtom
   ]))),
   A.lookAhead(A.choice([
-    A.regex(/^\s*(?:[(,~*]|or|$)/),
+    A.regex(inputMoleculeBodyTerminatorRegex),
     A.endOfInput
   ]))
 ])
-  .map(unnest2)
+  .map(RA.flattenDepth(2))
   .map(R.init)
-  .map(R.ifElse(
-    lastIsNull,
-    R.init,
-    R.identity
+  .map(R.if(
+    U.lastIsNull,
+    R.init
   ))
 
 const inputMoleculePrefixCondition = A.possibly(A.choice(prefixConditionStrings([
   'when hit'
-])))
+])).map(U.toTypedObj(PREFIX_CONDITION)))
 
 const inputMoleculeSuffixCondition = A.possibly(whitespaceSurrounded(A.choice([
   A.char('*')
@@ -73,7 +88,7 @@ const inputMoleculeSuffixCondition = A.possibly(whitespaceSurrounded(A.choice([
 
 const inputMolecule = A.namedSequenceOf([
   [
-    'prefixCondition',
+    PREFIX_CONDITION,
     inputMoleculePrefixCondition
   ],
   [
@@ -84,12 +99,12 @@ const inputMolecule = A.namedSequenceOf([
     'suffixCondition',
     inputMoleculeSuffixCondition
   ]
-]).map(toTypedObj('molecule'))
+]).map(U.toTypedObj(MOLECULE))
 
 const inputMoleculeOperator = A.choice([
   whitespaceSurrounded(A.char(',')),
   whitespaceSurrounded(A.char('~'))
-]).map(toTypedObj('operator'))
+]).map(U.toTypedObj(OPERATOR))
 
 const inputMolecules = A.sequenceOf([
   inputMolecule,
@@ -98,27 +113,26 @@ const inputMolecules = A.sequenceOf([
     inputMolecule
   ]))),
   A.lookAhead(A.choice([
-    A.regex(/^\s*(?:or|[(]|$)/),
+    A.regex(inputMoleculesTerminatorRegex),
     A.endOfInput
   ]))
 ])
-  .map(unnest2)
+  .map(RA.flattenDepth(2))
   .map(R.init)
-  .map(R.ifElse(
-    lastIsNull,
-    R.init,
-    R.identity
+  .map(R.if(
+    U.lastIsNull,
+    R.init
   ))
 
 const stancePrefixCondition = A.choice(prefixConditionStrings([
   'dmn',
   'rss'
-])).map(toTypedObj('stance'))
+])).map(U.toTypedObj(STANCE_CONDITION))
 
 const otherPrefixCondition = A.choice(prefixConditionStrings([
   ['(in rage|rage|during rage)', 'rage'],
   'jump'
-])).map(toTypedObj('other'))
+])).map(U.toTypedObj(OTHER_CONDITION))
 
 const prefixCondition = whitespaceSurrounded(A.choice([
   stancePrefixCondition,
@@ -130,7 +144,6 @@ const prefixConditions = A.possibly(A.many(prefixCondition))
 const suffixConditionStrings = R.map(conditionString('[)]'))
 
 const getSuffixCondition = R.compose(
-  A.possibly,
   whitespaceSurrounded,
   betweenParens,
   A.choice,
@@ -143,44 +156,27 @@ const suffixCondition = getSuffixCondition([
   'far'
 ])
 
-// const alternativeCommand = A.namedSequenceOf([
-//   ['prefixConditions', prefixConditions.errorMap((x) => {
-//     x // ?
-//     return x
-//   }).map((x) => {
-//     x // ?
-//     return x
-//   })],
-//   ['inputMolecules', inputMolecules.errorMap((x) => {
-//     x // ?
-//     return x
-//   }).map((x) => {
-//     x // ?
-//     return x
-//   })],
-//   ['suffixCondition', suffixCondition.errorMap((x) => {
-//     x // ?
-//     return x
-//   }).map((x) => {
-//     x // ?
-//     return x
-//   })]
-// ])
-
 const alternativeCommand = A.namedSequenceOf([
   ['prefixConditions', prefixConditions],
   ['inputMolecules', inputMolecules],
-  ['suffixCondition', suffixCondition]
+  [
+    'suffixCondition',
+    A.choice([
+      suffixCondition,
+      A.endOfInput,
+      A.regex(alternativeCommandTerminatorRegex)
+    ]).map(R.if(
+      RA.isNilOrEmpty,
+      R.always(null)
+    ))
+  ]
 ])
-
-const gotStringRegex = /got '(.*)(?='$)/
-const indexStringRegex = /position (\d*)/
 
 export const fullCommand = sepByOr(
   alternativeCommand
 )
   .errorChain(({ error }) => {
-    if (~error.substring('Expecting to match at least one separated value')) {
+    if (~error.indexOf('Expecting to match at least one separated value')) {
       return alternativeCommand
     }
 
@@ -196,5 +192,3 @@ export const fullCommand = sepByOr(
     const gotString = error.match(gotStringRegex) ? error.match(gotStringRegex)[1] : null
     return `"...${gotString}" at position ${index} is invalid`
   })
-
-export default fullCommand

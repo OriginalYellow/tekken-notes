@@ -123,6 +123,9 @@
           @blur="$v.computedOnCounterhit.$touch()"
         />
       </v-card-text>
+
+      <command-view :full-command="computedButtonInput" />
+
       <v-card-text>
         <!-- { validationName: 'isNotNilOrEmpty', message: requiredMessage }, -->
 
@@ -200,7 +203,8 @@ import { isNilOrEmpty } from 'ramda-adjunct'
 import { integer } from 'vuelidate/lib/validators'
 import charactersWithName from '~/gql/charactersWithName.gql'
 import moveProps from '~/moveProps'
-import fullCommand from '~/parsers/fullCommand'
+import { fullCommand } from '~/parsers/fullCommand'
+import CommandView from '~/components/CommandView'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
 
@@ -211,6 +215,11 @@ const isNotNilOrEmpty = val => !isNilOrEmpty(val)
 const sentenceCase = pipe(juxt([pipe(head, toUpper), tail]), join(''))
 
 export default {
+  components: {
+    // eslint-disable-next-line vue/no-unused-components
+    CommandView
+  },
+
   props: {
     ...moveProps,
     title: {

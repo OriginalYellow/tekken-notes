@@ -1,6 +1,6 @@
 // import * as RA from 'ramda-adjunct'
 // import { fullCommand } from '../../scratch/scratch-018.js'
-import { fullCommand } from '../../parsers/fullCommand.js'
+import { fullCommand } from '../../parsers/fullCommand/parser'
 
 it('"1 or 4, 2" parses correctly', () => {
   const tree = fullCommand.run('1 or 4, 2')
@@ -75,61 +75,71 @@ it('"DMN jump rage 2, 1" parses correctly', () => {
 })
 
 it('"1+5" should error', () => {
-  fullCommand.run('1+5').error // ?
   expect(fullCommand.run('1+5').error).toBeTruthy()
+  expect(fullCommand.run('1+5').error).toMatchSnapshot()
 })
 
 it('"4+" should error', () => {
-  fullCommand.run('4+').error // ?
   expect(fullCommand.run('4+').error).toBeTruthy()
+  expect(fullCommand.run('4+').error).toMatchSnapshot()
 })
 
 it('"4~, 2" should error', () => {
-  fullCommand.run('4~, 2').error // ?
   expect(fullCommand.run('4~, 2').error).toBeTruthy()
+  expect(fullCommand.run('4~, 2').error).toMatchSnapshot()
 })
 
 it('"1  + (cancel) or 1" should error', () => {
-  fullCommand.run('1  + (cancel) or 1').error // ?
   expect(fullCommand.run('1  + (cancel) or 1').error).toBeTruthy()
+  expect(fullCommand.run('1  + (cancel) or 1').error).toMatchSnapshot()
 })
 
 it('"rssin rage 2, 1 or 1" should error', () => {
-  fullCommand.run('rssin rage 2, 1 or 1').error // ?
   expect(fullCommand.run('rssin rage 2, 1 or 1').error).toBeTruthy()
+  expect(fullCommand.run('rssin rage 2, 1 or 1').error).toMatchSnapshot()
 })
 
 it('"1, 3 in rage" should error', () => {
-  fullCommand.run('1, 3 in rage').error // ?
   expect(fullCommand.run('1, 3 in rage').error).toBeTruthy()
+  expect(fullCommand.run('1, 3 in rage').error).toMatchSnapshot()
 })
 
 it('"1+5, asdf" should error', () => {
-  fullCommand.run('1+5, asdf').error // ?
   expect(fullCommand.run('1+5, asdf').error).toBeTruthy()
+  expect(fullCommand.run('1+5, asdf').error).toMatchSnapshot()
 })
 
 it('"1+4, asdf" should error', () => {
-  fullCommand.run('1+4, asdf').error // ?
   expect(fullCommand.run('1+4, asdf').error).toBeTruthy()
+  expect(fullCommand.run('1+4, asdf').error).toMatchSnapshot()
 })
 
 it('"adf 1, 3 in rage" should error', () => {
-  fullCommand.run('adf 1, 3 in rage').error // ?
   expect(fullCommand.run('adf 1, 3 in rage').error).toBeTruthy()
+  expect(fullCommand.run('adf 1, 3 in rage').error).toMatchSnapshot()
 })
 
 it('"dmn in rage 2, 1+4 asdf or 1" should error', () => {
-  fullCommand.run('dmn in rage 2, 1+4 asdf or 1').error // ?
   expect(fullCommand.run('dmn in rage 2, 1+4 asdf or 1').error).toBeTruthy()
+  expect(fullCommand.run('dmn in rage 2, 1+4 asdf or 1').error).toMatchSnapshot()
 })
 
 it('"dmn in rage 2,, 1+4 or 1" should error', () => {
-  fullCommand.run('dmn in rage 2,, 1+4 or 1').error // ?
   expect(fullCommand.run('dmn in rage 2,, 1+4 or 1').error).toBeTruthy()
+  expect(fullCommand.run('dmn in rage 2,, 1+4 or 1').error).toMatchSnapshot()
 })
 
-it('"in rage" should error', () => {
-  fullCommand.run('in rage ').error // ?
-  expect(fullCommand.run('in rage').error).toBeTruthy()
+it('"in rage " should error', () => {
+  expect(fullCommand.run('in rage ').error).toBeTruthy()
+  expect(fullCommand.run('in rage ').error).toMatchSnapshot()
+})
+
+it('"1 (" should error', () => {
+  expect(fullCommand.run('1 (').error).toBeTruthy()
+  expect(fullCommand.run('1 (').error).toMatchSnapshot()
+})
+
+it('"1 (asdf)" should error', () => {
+  expect(fullCommand.run('1 (asdf)').isError).toBeTruthy()
+  expect(fullCommand.run('1 (asdf)').error).toMatchSnapshot()
 })

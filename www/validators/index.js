@@ -1,2 +1,2 @@
-export fullCommand from '../parsers/fullCommand'
+export { fullCommand } from '../parsers/fullCommand'
 export move from './move'
