@@ -7,7 +7,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -17,8 +17,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -34,13 +34,13 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -59,7 +59,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -69,16 +69,16 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -88,8 +88,8 @@ Object {
                 "val": "4",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -105,13 +105,13 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -124,7 +124,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -142,16 +142,16 @@ Object {
                 "val": "3",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": "cancel",
+      "prefix conditions": Array [],
+      "suffix condition": "cancel",
     },
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -161,13 +161,13 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -180,7 +180,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -198,13 +198,13 @@ Object {
                 "val": "3",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": "cancel",
+      "prefix conditions": Array [],
+      "suffix condition": "cancel",
     },
   ],
 }
@@ -217,7 +217,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -235,8 +235,8 @@ Object {
                 "val": "3",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -260,16 +260,16 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": Object {
-              "type": "prefixCondition",
+            "prefix condition": Object {
+              "type": "prefix condition",
               "val": "when hit",
             },
-            "suffixCondition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -294,7 +294,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -304,8 +304,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -321,26 +321,26 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "stance",
+          "type": "stance condition",
           "val": "dmn",
         },
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "jump",
         },
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "rage",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
   ],
 }
@@ -355,7 +355,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -373,8 +373,8 @@ Object {
                 "val": "4",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -390,8 +390,8 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -415,8 +415,8 @@ Object {
                 "val": "3",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -432,25 +432,25 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "stance",
+          "type": "stance condition",
           "val": "dmn",
         },
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "rage",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -460,13 +460,13 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -481,7 +481,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -491,8 +491,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -516,25 +516,25 @@ Object {
                 "val": "4",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "stance",
+          "type": "stance condition",
           "val": "dmn",
         },
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "rage",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -544,13 +544,13 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }
@@ -567,7 +567,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -577,8 +577,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -594,22 +594,22 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "rage",
         },
         Object {
-          "type": "stance",
+          "type": "stance condition",
           "val": "dmn",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
   ],
 }
@@ -622,7 +622,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -632,8 +632,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -649,18 +649,18 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "jump",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
   ],
 }
@@ -673,7 +673,7 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -683,8 +683,8 @@ Object {
                 "val": "2",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
         Object {
@@ -700,25 +700,25 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [
+      "prefix conditions": Array [
         Object {
-          "type": "stance",
+          "type": "stance condition",
           "val": "rss",
         },
         Object {
-          "type": "other",
+          "type": "other condition",
           "val": "rage",
         },
       ],
-      "suffixCondition": null,
+      "suffix condition": null,
     },
     Object {
-      "inputMolecules": Array [
+      "input molecules": Array [
         Object {
           "type": "molecule",
           "val": Object {
@@ -728,13 +728,13 @@ Object {
                 "val": "1",
               },
             ],
-            "prefixCondition": null,
-            "suffixCondition": null,
+            "prefix condition": null,
+            "suffix condition": null,
           },
         },
       ],
-      "prefixConditions": Array [],
-      "suffixCondition": null,
+      "prefix conditions": Array [],
+      "suffix condition": null,
     },
   ],
 }

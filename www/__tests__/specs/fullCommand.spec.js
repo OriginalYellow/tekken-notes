@@ -1,6 +1,6 @@
 // import * as RA from 'ramda-adjunct'
 // import { fullCommand } from '../../scratch/scratch-018.js'
-import { fullCommand } from '../../parsers/fullCommand/parser'
+import { fullCommand } from '../../parsers/fullCommand/parseFullCommand'
 
 it('"1 or 4, 2" parses correctly', () => {
   const tree = fullCommand.run('1 or 4, 2')
@@ -71,6 +71,16 @@ it('" 2, 1" parses correctly', () => {
 
 it('"DMN jump rage 2, 1" parses correctly', () => {
   const tree = fullCommand.run('DMN jump rage 2, 1')
+  expect(tree).toMatchSnapshot()
+})
+
+it('"DMN jump rage u/b+2, 1" parses correctly', () => {
+  const tree = fullCommand.run('DMN jump rage u/b+2, 1')
+  expect(tree).toMatchSnapshot()
+})
+
+it('"DMN jump rage U/B+2, 1" parses correctly', () => {
+  const tree = fullCommand.run('DMN jump rage U/B+2, 1')
   expect(tree).toMatchSnapshot()
 })
 

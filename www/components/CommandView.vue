@@ -30,7 +30,7 @@ export default {
     },
 
     parsedFullCommand () {
-      return this.$validators.fullCommand.run(this.fullCommand)
+      return this.$validators.parseFullCommand(this.fullCommand)
     },
 
     result () {

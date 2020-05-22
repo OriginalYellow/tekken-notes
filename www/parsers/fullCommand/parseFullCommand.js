@@ -9,20 +9,26 @@ import {
   ATOM,
   MOLECULE,
   OPERATOR,
+  SUFFIX_CONDITION,
   PREFIX_CONDITION,
+  PREFIX_CONDITIONS,
   STANCE_CONDITION,
-  OTHER_CONDITION
-} from './types'
+  OTHER_CONDITION,
+  INPUT_MOLECULES,
+  inputAtomRx,
+  inputAtomTerminatorRx,
+  inputMoleculeBodyTerminatorRx,
+  inputMoleculesTerminatorRx,
+  altCommandTerminatorRx,
+  gotStringRx,
+  indexStringRx,
+  MOLECULE_PREFIX_CONDITION_STRINGS,
+  OTHER_ALT_COMMAND_PREFIX_CONDITION_STRINGS,
+  STANCE_PREFIX_CONDITION_STRINGS,
+  ALT_COMMAND_SUFFIX_CONDITION_STRINGS
+} from './constants'
 
 R.if = R.ifElse(R.__, R.__, R.identity)
-
-export const inputAtomRegex = /^[1234]/
-const inputAtomTerminatorRegex = /^\s*(?:[,+~(*]|or|$)/
-const inputMoleculeBodyTerminatorRegex = /^\s*(?:[(,~*]|or|$)/
-const inputMoleculesTerminatorRegex = /^\s*(?:or|[(]|$)/
-const alternativeCommandTerminatorRegex = /^\s*(?=or)/
-const gotStringRegex = /got '(.*)(?='$)/
-const indexStringRegex = /position (\d*)/
 
 const whitespaceSurrounded = parser =>
   A.between(A.optionalWhitespace)(A.optionalWhitespace)(parser)
@@ -47,9 +53,9 @@ const prefixConditionStrings = R.map(conditionString('\\s'))
 
 const inputAtom = whitespaceSurrounded(
   A.sequenceOf([
-    A.regex(inputAtomRegex),
+    A.regex(inputAtomRx),
     A.lookAhead(A.choice([
-      A.regex(inputAtomTerminatorRegex),
+      A.regex(inputAtomTerminatorRx),
       A.endOfInput
     ]))
   ])
@@ -67,7 +73,7 @@ const inputMoleculeBody = A.sequenceOf([
     inputAtom
   ]))),
   A.lookAhead(A.choice([
-    A.regex(inputMoleculeBodyTerminatorRegex),
+    A.regex(inputMoleculeBodyTerminatorRx),
     A.endOfInput
   ]))
 ])
@@ -78,9 +84,9 @@ const inputMoleculeBody = A.sequenceOf([
     R.init
   ))
 
-const inputMoleculePrefixCondition = A.possibly(A.choice(prefixConditionStrings([
-  'when hit'
-])).map(U.toTypedObj(PREFIX_CONDITION)))
+const inputMoleculePrefixCondition = A.possibly(A.choice(prefixConditionStrings(
+  MOLECULE_PREFIX_CONDITION_STRINGS
+)).map(U.toTypedObj(PREFIX_CONDITION)))
 
 const inputMoleculeSuffixCondition = A.possibly(whitespaceSurrounded(A.choice([
   A.char('*')
@@ -96,7 +102,7 @@ const inputMolecule = A.namedSequenceOf([
     inputMoleculeBody
   ],
   [
-    'suffixCondition',
+    SUFFIX_CONDITION,
     inputMoleculeSuffixCondition
   ]
 ]).map(U.toTypedObj(MOLECULE))
@@ -113,7 +119,7 @@ const inputMolecules = A.sequenceOf([
     inputMolecule
   ]))),
   A.lookAhead(A.choice([
-    A.regex(inputMoleculesTerminatorRegex),
+    A.regex(inputMoleculesTerminatorRx),
     A.endOfInput
   ]))
 ])
@@ -124,47 +130,41 @@ const inputMolecules = A.sequenceOf([
     R.init
   ))
 
-const stancePrefixCondition = A.choice(prefixConditionStrings([
-  'dmn',
-  'rss'
-])).map(U.toTypedObj(STANCE_CONDITION))
+const stancePrefixCondition = A.choice(prefixConditionStrings(
+  STANCE_PREFIX_CONDITION_STRINGS
+)).map(U.toTypedObj(STANCE_CONDITION))
 
-const otherPrefixCondition = A.choice(prefixConditionStrings([
-  ['(in rage|rage|during rage)', 'rage'],
-  'jump'
-])).map(U.toTypedObj(OTHER_CONDITION))
+const otherPrefixCondition = A.choice(prefixConditionStrings(
+  OTHER_ALT_COMMAND_PREFIX_CONDITION_STRINGS
+)).map(U.toTypedObj(OTHER_CONDITION))
 
-const prefixCondition = whitespaceSurrounded(A.choice([
+const altCommandPrefixCondition = whitespaceSurrounded(A.choice([
   stancePrefixCondition,
   otherPrefixCondition
 ]))
 
-const prefixConditions = A.possibly(A.many(prefixCondition))
+const altCommandPrefixConditions = A.possibly(A.many(altCommandPrefixCondition))
 
-const suffixConditionStrings = R.map(conditionString('[)]'))
-
-const getSuffixCondition = R.compose(
+const getAltCommandSuffixCondition = R.compose(
   whitespaceSurrounded,
   betweenParens,
   A.choice,
-  suffixConditionStrings
+  R.map(conditionString('[)]'))
 )
 
-const suffixCondition = getSuffixCondition([
-  'cancel',
-  'close',
-  'far'
-])
+const altCommandSuffixCondition = getAltCommandSuffixCondition(
+  ALT_COMMAND_SUFFIX_CONDITION_STRINGS
+)
 
-const alternativeCommand = A.namedSequenceOf([
-  ['prefixConditions', prefixConditions],
-  ['inputMolecules', inputMolecules],
+const altCommand = A.namedSequenceOf([
+  [PREFIX_CONDITIONS, altCommandPrefixConditions],
+  [INPUT_MOLECULES, inputMolecules],
   [
-    'suffixCondition',
+    SUFFIX_CONDITION,
     A.choice([
-      suffixCondition,
+      altCommandSuffixCondition,
       A.endOfInput,
-      A.regex(alternativeCommandTerminatorRegex)
+      A.regex(altCommandTerminatorRx)
     ]).map(R.if(
       RA.isNilOrEmpty,
       R.always(null)
@@ -172,23 +172,29 @@ const alternativeCommand = A.namedSequenceOf([
   ]
 ])
 
+const transformError = (error) => {
+  const index = error.match(indexStringRx) ? error.match(indexStringRx)[1] : null
+
+  if (~error.indexOf('but got end of input')) {
+    return `expected more text at position ${index}`
+  }
+
+  const gotString = error.match(gotStringRx) ? error.match(gotStringRx)[1] : null
+  return `"...${gotString}" at position ${index} is invalid`
+}
+
+const recoverFromError = ({ error }) => {
+  if (~error.indexOf('Expecting to match at least one separated value')) {
+    return altCommand
+  }
+
+  return A.fail(error)
+}
+
 export const fullCommand = sepByOr(
-  alternativeCommand
+  altCommand
 )
-  .errorChain(({ error }) => {
-    if (~error.indexOf('Expecting to match at least one separated value')) {
-      return alternativeCommand
-    }
+  .errorChain(recoverFromError)
+  .errorMap(transformError)
 
-    return A.fail(error)
-  })
-  .errorMap((error) => {
-    const index = error.match(indexStringRegex) ? error.match(indexStringRegex)[1] : null
-
-    if (~error.indexOf('but got end of input')) {
-      return `expected more text at position ${index}`
-    }
-
-    const gotString = error.match(gotStringRegex) ? error.match(gotStringRegex)[1] : null
-    return `"...${gotString}" at position ${index} is invalid`
-  })
+export const parseFullCommand = A.parse(fullCommand)
