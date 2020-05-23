@@ -3,9 +3,9 @@ import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import * as S from 'sanctuary'
 import * as L from 'partial.lenses'
-import * as Lenses from './lenses'
+import * as Lens from './AltCommandLens'
 import * as U from './util'
-// import { fullCommand } from './parser'
+// import { fullCommand } from './parse'
 import {
   MOLECULE,
   OPERATOR,
@@ -13,22 +13,28 @@ import {
   IMAGE,
   PARTIAL_IMAGE,
   TEXT_WITH_PARENS,
+  ALT_COMMAND_OPERATOR,
   faceButtonRx,
   directionalButtonRx
 } from './constants'
 
 R.if = R.ifElse(R.__, R.__, R.identity)
 
+const removeMaybesAndFlatten = R.pipe(
+  R.flatten,
+  R.filter(RA.isNotNilOrEmpty)
+)
+
 const transformDirectionalButtonVal = R.pipe(
   R.prop('val'),
   R.replace('/', ''),
   R.if(
-    S.test(/^[A-Z]*/),
+    S.test(/^[A-Z]+/),
     R.flip(R.concat)('-hold')
   )
 )
 
-const Model = {
+const InputMolecule = {
   prefixCondition: U.ifNotNilOrEmpty(
     R.applySpec({
       type: R.always(TEXT),
@@ -36,7 +42,15 @@ const Model = {
     })),
 
   suffixCondition: U.ifNotNilOrEmpty(
-    U.toTypedObj(TEXT_WITH_PARENS)
+    R.cond([
+      [
+        R.equals('*'),
+        R.always({
+          type: IMAGE,
+          val: 'neutral'
+        })
+      ]
+    ])
   ),
 
   operator: R.applySpec({
@@ -49,26 +63,7 @@ const Model = {
         R.propEq('val', '~'),
         R.always('tilde')
       ]])
-  })
-}
-
-Model.prefixConditions = R.map(R.applySpec({
-  type: R.always(TEXT),
-  val: S.prop('val')
-}))
-
-const InputMolecule = {
-  suffixCondition: U.ifNotNilOrEmpty(
-    R.cond([
-      [
-        R.equals('*'),
-        R.always({
-          type: IMAGE,
-          val: 'neutral'
-        })
-      ]
-    ])
-  ),
+  }),
 
   body: R.map(
     R.applySpec({
@@ -96,29 +91,61 @@ const InputMolecule = {
     }))
 }
 
-Model.inputMolecules = R.map(
-  R.cond([
-    [
-      R.propEq('type', MOLECULE),
+const Body = {
+  suffixCondition: U.ifNotNilOrEmpty(
+    U.toTypedObj(TEXT_WITH_PARENS, 'val')
+  ),
 
-      U.unfoldThunks([
-        R.pipe(
-          L.get(Lenses.InputMolecule.prefixCondition),
-          Model.prefixCondition
-        ),
-        R.pipe(
-          L.collect(Lenses.InputMolecule.body),
-          InputMolecule.body
-        ),
-        R.pipe(
-          L.get(Lenses.InputMolecule.suffixCondition),
-          InputMolecule.suffixCondition)
-      ])
-    ], [
-      R.propEq('type', OPERATOR),
+  prefixConditions: R.map(R.applySpec({
+    type: R.always(TEXT),
+    val: S.prop('val')
+  })),
 
-      Model.operator
-    ]]))
+  inputMolecules: R.map(
+    R.cond([
+      [
+        R.propEq('type', MOLECULE),
+
+        U.unfoldThunks([
+          R.pipe(
+            L.get(Lens.InputMolecule.prefixCondition),
+            InputMolecule.prefixCondition
+          ),
+          R.pipe(
+            L.collect(Lens.InputMolecule.body),
+            InputMolecule.body
+          ),
+          R.pipe(
+            L.get(Lens.InputMolecule.suffixCondition),
+            InputMolecule.suffixCondition)
+        ])
+      ], [
+        R.propEq('type', OPERATOR),
+
+        InputMolecule.operator
+      ]]))
+}
+
+const AltCommand = {
+  body: U.unfoldThunks([
+    R.ifElse(
+      R.prop('first'),
+      RA.noop,
+      R.always({ type: ALT_COMMAND_OPERATOR, val: 'or' })
+    ),
+    R.pipe(
+      L.collect([Lens.Model.body, Lens.Body.prefixConditions]),
+      Body.prefixConditions
+    ),
+    R.pipe(
+      L.collect([Lens.Model.body, Lens.Body.inputMolecules]),
+      Body.inputMolecules
+    ),
+    R.pipe(
+      L.get([Lens.Model.body, Lens.Body.suffixCondition]),
+      Body.suffixCondition)
+  ])
+}
 
 const combinePartialImages = R.pipe(
   R.groupWith(R.eqBy(R.propEq('type', PARTIAL_IMAGE))),
@@ -138,41 +165,26 @@ const combinePartialImages = R.pipe(
         }, ''),
       R.if(
         RA.isNotNilOrEmpty,
-        U.toTypedObj(IMAGE)
+        U.toTypedObj(IMAGE, 'val')
       )
-    ))),
-
-  R.flatten
+    )))
 )
 
-export const compileFullCommandToProps = R.pipe(
-  R.map(U.unfoldThunks([
-    R.pipe(
-      L.collect(Lenses.Model.prefixConditions),
-      Model.prefixConditions
-    ),
-    R.pipe(
-      L.collect(Lenses.Model.inputMolecules),
-      Model.inputMolecules
-    ),
-    R.pipe(
-      L.get(Lenses.Model.suffixCondition),
-      Model.suffixCondition)])),
-
-  // MIKE: separate concerns better by creating these nodes during
-  // parsing instead:
-  R.intersperse({ type: IMAGE, val: 'or' }),
-
-  R.flatten,
-  R.filter(RA.isNotNilOrEmpty),
+export const compileToProps = R.pipe(
+  R.map(AltCommand.body),
+  removeMaybesAndFlatten,
   combinePartialImages,
-  R.filter(RA.isNotNilOrEmpty)
+  removeMaybesAndFlatten
 )
 
-// const testCommand = 'jump in rage 1+2* or when hit f+d/f+4, 2 (close)'
+// const testCommand = 'jump in rage 1+2* or when hit F+f+d/f+4, 2 (close)'
+// const testCommand2 = '1+2'
 // const testTree = fullCommand.run(testCommand).result
+// const testTree2 = fullCommand.run(testCommand2).result
 // const compiledTestTree = compileFullCommandToProps(testTree)
+// const compiledTestTree2 = compileFullCommandToProps(testTree2)
 
-// testCommand // ?
 // jsonFormat(testTree) // ?
+// // jsonFormat(testTree2) // ?
 // jsonFormat(compiledTestTree) // ?
+// // jsonFormat(compiledTestTree2) // ?

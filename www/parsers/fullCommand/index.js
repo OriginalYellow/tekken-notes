@@ -1,2 +1,2 @@
-export { parseFullCommand } from './parseFullCommand'
-export { compileFullCommandToProps as compileToProps } from './compileToProps'
+export { parse } from './parse'
+export { compileToProps } from './compileToProps'

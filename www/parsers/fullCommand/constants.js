@@ -8,6 +8,8 @@ export const PREFIX_CONDITIONS = 'prefix conditions'
 export const STANCE_CONDITION = 'stance condition'
 export const OTHER_CONDITION = 'other condition'
 export const INPUT_MOLECULES = 'input molecules'
+export const ALT_COMMAND = 'alt command'
+export const ALT_COMMAND_OPERATOR = 'alt command operator'
 
 // compiler types:
 export const TEXT = 'text'

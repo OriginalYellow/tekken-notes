@@ -203,7 +203,7 @@ import { isNilOrEmpty } from 'ramda-adjunct'
 import { integer } from 'vuelidate/lib/validators'
 import charactersWithName from '~/gql/charactersWithName.gql'
 import moveProps from '~/moveProps'
-import { parseFullCommand } from '~/parsers/fullCommand'
+import { parse as parseFullCommand } from '~/parsers/fullCommand'
 import CommandView from '~/components/CommandView'
 
 const isNotNilOrEmpty = val => !isNilOrEmpty(val)
@@ -277,7 +277,7 @@ export default {
           () => '',
           x => x
         ),
-        x => parseFullCommand(x),
+        parseFullCommand,
         prop('isError'),
         not
       )

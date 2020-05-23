@@ -7,6 +7,10 @@ import {
 } from './constants'
 
 export const Model = {
+  body: ['body']
+}
+
+export const Body = {
   prefixConditions: [PREFIX_CONDITIONS, L.elems],
   suffixCondition: [SUFFIX_CONDITION],
   inputMolecules: [INPUT_MOLECULES, L.elems]

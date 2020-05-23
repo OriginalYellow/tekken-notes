@@ -11,6 +11,7 @@ import {
   OPERATOR,
   SUFFIX_CONDITION,
   PREFIX_CONDITION,
+  ALT_COMMAND,
   PREFIX_CONDITIONS,
   STANCE_CONDITION,
   OTHER_CONDITION,
@@ -61,10 +62,10 @@ const inputAtom = whitespaceSurrounded(
   ])
 )
   .map(R.head)
-  .map(U.toTypedObj(ATOM))
+  .map(U.toTypedObj(ATOM, 'val'))
 
 const inputAtomOperator = A.char('+')
-  .map(U.toTypedObj(OPERATOR))
+  .map(U.toTypedObj(OPERATOR, 'val'))
 
 const inputMoleculeBody = A.sequenceOf([
   inputAtom,
@@ -86,7 +87,7 @@ const inputMoleculeBody = A.sequenceOf([
 
 const inputMoleculePrefixCondition = A.possibly(A.choice(prefixConditionStrings(
   MOLECULE_PREFIX_CONDITION_STRINGS
-)).map(U.toTypedObj(PREFIX_CONDITION)))
+)).map(U.toTypedObj(PREFIX_CONDITION, 'val')))
 
 const inputMoleculeSuffixCondition = A.possibly(whitespaceSurrounded(A.choice([
   A.char('*')
@@ -105,12 +106,12 @@ const inputMolecule = A.namedSequenceOf([
     SUFFIX_CONDITION,
     inputMoleculeSuffixCondition
   ]
-]).map(U.toTypedObj(MOLECULE))
+]).map(U.toTypedObj(MOLECULE, 'val'))
 
 const inputMoleculeOperator = A.choice([
   whitespaceSurrounded(A.char(',')),
   whitespaceSurrounded(A.char('~'))
-]).map(U.toTypedObj(OPERATOR))
+]).map(U.toTypedObj(OPERATOR, 'val'))
 
 const inputMolecules = A.sequenceOf([
   inputMolecule,
@@ -132,11 +133,11 @@ const inputMolecules = A.sequenceOf([
 
 const stancePrefixCondition = A.choice(prefixConditionStrings(
   STANCE_PREFIX_CONDITION_STRINGS
-)).map(U.toTypedObj(STANCE_CONDITION))
+)).map(U.toTypedObj(STANCE_CONDITION, 'val'))
 
 const otherPrefixCondition = A.choice(prefixConditionStrings(
   OTHER_ALT_COMMAND_PREFIX_CONDITION_STRINGS
-)).map(U.toTypedObj(OTHER_CONDITION))
+)).map(U.toTypedObj(OTHER_CONDITION, 'val'))
 
 const altCommandPrefixCondition = whitespaceSurrounded(A.choice([
   stancePrefixCondition,
@@ -194,7 +195,12 @@ const recoverFromError = ({ error }) => {
 export const fullCommand = sepByOr(
   altCommand
 )
+  .map(R.map(R.pipe(
+    U.toTypedObj(ALT_COMMAND, 'body'),
+    R.assoc('first', false)
+  )))
+  .map(R.adjust(0, R.assoc('first', true)))
   .errorChain(recoverFromError)
   .errorMap(transformError)
 
-export const parseFullCommand = A.parse(fullCommand)
+export const parse = A.parse(fullCommand)

@@ -1,6 +1,11 @@
 // import * as RA from 'ramda-adjunct'
 // import { fullCommand } from '../../scratch/scratch-018.js'
-import { fullCommand } from '../../parsers/fullCommand/parseFullCommand'
+import jsonFormat from 'json-format'
+import { fullCommand } from '../../parsers/fullCommand/parse'
+
+// console.log(jsonFormat(fullCommand.run('1 or 2').result))
+console.log(jsonFormat(fullCommand.run('1 or 2').result))
+// fullCommand2.run('1 or 2') // ?
 
 it('"1 or 4, 2" parses correctly', () => {
   const tree = fullCommand.run('1 or 4, 2')

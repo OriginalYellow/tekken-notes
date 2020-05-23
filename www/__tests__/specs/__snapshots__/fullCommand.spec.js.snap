@@ -7,40 +7,43 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -59,59 +62,65 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "4",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "4",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -124,50 +133,56 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "3",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "3",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": "cancel",
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": "cancel",
+      },
+      "type": "alt command",
     },
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -180,31 +195,34 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "3",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "3",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": "cancel",
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": "cancel",
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -217,59 +235,62 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "3",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
-          },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": Object {
-              "type": "prefix condition",
-              "val": "when hit",
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "3",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
             },
-            "suffix condition": null,
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
+          },
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": Object {
+                "type": "prefix condition",
+                "val": "when hit",
+              },
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -294,53 +315,196 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "stance condition",
-          "val": "dmn",
-        },
-        Object {
-          "type": "other condition",
-          "val": "jump",
-        },
-        Object {
-          "type": "other condition",
-          "val": "rage",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+          Object {
+            "type": "other condition",
+            "val": "jump",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
+    },
+  ],
+}
+`;
+
+exports[`"DMN jump rage U/B+2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 22,
+  "isError": false,
+  "result": Array [
+    Object {
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "U/B",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+          Object {
+            "type": "operator",
+            "val": ",",
+          },
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+          Object {
+            "type": "other condition",
+            "val": "jump",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
+    },
+  ],
+}
+`;
+
+exports[`"DMN jump rage u/b+2, 1" parses correctly 1`] = `
+Object {
+  "data": null,
+  "index": 22,
+  "isError": false,
+  "result": Array [
+    Object {
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "u/b",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+          Object {
+            "type": "operator",
+            "val": ",",
+          },
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+          Object {
+            "type": "other condition",
+            "val": "jump",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -355,118 +519,124 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "4",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "4",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-        Object {
-          "type": "operator",
-          "val": "~",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "4",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "3",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": "~",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "stance condition",
-          "val": "dmn",
-        },
-        Object {
-          "type": "other condition",
-          "val": "rage",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "4",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "3",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+          Object {
+            "type": "operator",
+            "val": ",",
+          },
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -481,76 +651,82 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-              Object {
-                "type": "operator",
-                "val": "+",
-              },
-              Object {
-                "type": "atom",
-                "val": "4",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "stance condition",
-          "val": "dmn",
-        },
-        Object {
-          "type": "other condition",
-          "val": "rage",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+                Object {
+                  "type": "operator",
+                  "val": "+",
+                },
+                Object {
+                  "type": "atom",
+                  "val": "4",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -567,49 +743,52 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "other condition",
-          "val": "rage",
-        },
-        Object {
-          "type": "stance condition",
-          "val": "dmn",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+          Object {
+            "type": "stance condition",
+            "val": "dmn",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -622,45 +801,48 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "other condition",
-          "val": "jump",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "other condition",
+            "val": "jump",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
@@ -673,68 +855,74 @@ Object {
   "isError": false,
   "result": Array [
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "2",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "2",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-        Object {
-          "type": "operator",
-          "val": ",",
-        },
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+          Object {
+            "type": "operator",
+            "val": ",",
           },
-        },
-      ],
-      "prefix conditions": Array [
-        Object {
-          "type": "stance condition",
-          "val": "rss",
-        },
-        Object {
-          "type": "other condition",
-          "val": "rage",
-        },
-      ],
-      "suffix condition": null,
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
+          },
+        ],
+        "prefix conditions": Array [
+          Object {
+            "type": "stance condition",
+            "val": "rss",
+          },
+          Object {
+            "type": "other condition",
+            "val": "rage",
+          },
+        ],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
     Object {
-      "input molecules": Array [
-        Object {
-          "type": "molecule",
-          "val": Object {
-            "body": Array [
-              Object {
-                "type": "atom",
-                "val": "1",
-              },
-            ],
-            "prefix condition": null,
-            "suffix condition": null,
+      "body": Object {
+        "input molecules": Array [
+          Object {
+            "type": "molecule",
+            "val": Object {
+              "body": Array [
+                Object {
+                  "type": "atom",
+                  "val": "1",
+                },
+              ],
+              "prefix condition": null,
+              "suffix condition": null,
+            },
           },
-        },
-      ],
-      "prefix conditions": Array [],
-      "suffix condition": null,
+        ],
+        "prefix conditions": Array [],
+        "suffix condition": null,
+      },
+      "type": "alt command",
     },
   ],
 }
