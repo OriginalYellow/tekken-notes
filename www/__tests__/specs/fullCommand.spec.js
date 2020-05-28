@@ -1,11 +1,6 @@
-// import * as RA from 'ramda-adjunct'
-// import { fullCommand } from '../../scratch/scratch-018.js'
 import jsonFormat from 'json-format'
 import { fullCommand } from '../../parsers/fullCommand/parse'
-
-// console.log(jsonFormat(fullCommand.run('1 or 2').result))
-console.log(jsonFormat(fullCommand.run('1 or 2').result))
-// fullCommand2.run('1 or 2') // ?
+import { compileToProps } from '../../parsers/fullCommand'
 
 it('"1 or 4, 2" parses correctly', () => {
   const tree = fullCommand.run('1 or 4, 2')
@@ -21,7 +16,6 @@ it('"1+3, when hit 2+1" successfully parses', () => {
 })
 
 it('"1+3*, when hit 2+1*" successfully parses', () => {
-  fullCommand.run('1+3*, when hit 2+1*') // ?
   expect(fullCommand.run('1+3*, when hit 2+1 * ').error).toBeFalsy()
 })
 
@@ -86,6 +80,12 @@ it('"DMN jump rage u/b+2, 1" parses correctly', () => {
 
 it('"DMN jump rage U/B+2, 1" parses correctly', () => {
   const tree = fullCommand.run('DMN jump rage U/B+2, 1')
+  expect(tree).toMatchSnapshot()
+})
+
+it('"Ws+3" parses correctly', () => {
+  const tree = fullCommand.run('Ws+3').result
+  expect(tree).toBeTruthy()
   expect(tree).toMatchSnapshot()
 })
 
@@ -157,4 +157,34 @@ it('"1 (" should error', () => {
 it('"1 (asdf)" should error', () => {
   expect(fullCommand.run('1 (asdf)').isError).toBeTruthy()
   expect(fullCommand.run('1 (asdf)').error).toMatchSnapshot()
+})
+
+it('"1 (far)asdf" should error', () => {
+  expect(fullCommand.run('1 (far)asdf').isError).toBeTruthy()
+  expect(fullCommand.run('1 (asdf)').error).toMatchSnapshot()
+})
+
+it('"1+2" should compile to props correctly', () => {
+  const tree = fullCommand.run('1+2').result
+  expect(compileToProps(tree)).toMatchSnapshot()
+})
+
+it('"jump in rage 1+2* or when hit F+f+d/f+4, 2 (close)" should compile to props correctly', () => {
+  const tree = fullCommand.run('jump in rage 1+2* or when hit F+f+d/f+4, 2 (close)').result
+  expect(compileToProps(tree)).toMatchSnapshot()
+})
+
+it('"Ws+3" should compile to props correctly', () => {
+  const tree = fullCommand.run('Ws+3').result // ?
+  expect(compileToProps(tree)).toMatchSnapshot()
+})
+
+it('"hcb+3" should compile to props correctly', () => {
+  const tree = fullCommand.run('hcb+3').result
+  expect(compileToProps(tree)).toMatchSnapshot()
+})
+
+it('"hcb" should compile to props correctly', () => {
+  const tree = fullCommand.run('hcb').result
+  expect(compileToProps(tree)).toMatchSnapshot()
 })

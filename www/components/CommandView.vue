@@ -9,13 +9,23 @@
         :key="i"
       >
         <img
-          v-if="partialCommand.type === fullCommandConstants.IMAGE"
+          v-if="partialCommand.type === types.IMAGE"
           :src="`https://res.cloudinary.com/dscfugb4z/image/upload/tekken-notes/input/${partialCommand.val}.png`"
           class="image mb-n2"
         >
 
+        <span v-else-if="partialCommand.type === types.MULTIPLE_IMAGES">
+          <img
+            v-for="(val, j) in partialCommand.val"
+            :key="j"
+            :src="`https://res.cloudinary.com/dscfugb4z/image/upload/tekken-notes/input/${val}.png`"
+            class="image mb-n2"
+          >
+
+        </span>
+
         <v-chip
-          v-else-if="partialCommand.type === fullCommandConstants.TEXT"
+          v-else-if="partialCommand.type === types.TEXT"
           label
           :class="chipClass"
           color="red lighten-2"
@@ -25,13 +35,28 @@
         </v-chip>
 
         <v-chip
-          v-else-if="partialCommand.type === fullCommandConstants.TEXT_WITH_PARENS"
+          v-else-if="partialCommand.type === types.TEXT_WITH_PARENS"
           label
           :class="chipClass"
-          color="indigo lighten-2"
+          color="transparent"
           dark
+          large
         >
-          ({{ partialCommand.val }})
+          <span class="indigo--text text--darken-2 font-weight-bold">
+            ({{ partialCommand.val }})
+          </span>
+        </v-chip>
+
+        <v-chip
+          v-else-if="partialCommand.type === types.ALT_COMMAND_OPERATOR"
+          label
+          :class="chipClass"
+          color="transparent"
+          large
+        >
+          <span class="indigo--text text--darken-2 font-weight-bold">
+            {{ partialCommand.val }}
+          </span>
         </v-chip>
       </span>
     </p>
@@ -39,7 +64,7 @@
 </template>
 
 <script>
-import { TEXT, TEXT_WITH_PARENS, IMAGE } from '~/parsers/fullCommand/constants'
+import { compilerTypes as types } from '~/parsers/fullCommand/constants'
 
 export default {
   props: {
@@ -56,11 +81,7 @@ export default {
   },
 
   computed: {
-    fullCommandConstants: () => ({
-      TEXT,
-      TEXT_WITH_PARENS,
-      IMAGE
-    }),
+    types: () => types,
 
     parsedFullCommand () {
       return this.$validators.parseFullCommand(this.fullCommand)
@@ -92,6 +113,6 @@ export default {
 <style scoped>
 .image {
   /* max-width: 50px; */
-  max-height: 50px
+  max-height: 50px;
 }
 </style>

@@ -1,26 +1,26 @@
-// import jsonFormat from 'json-format'
 import * as R from 'ramda'
 import * as RA from 'ramda-adjunct'
 import * as S from 'sanctuary'
 import * as L from 'partial.lenses'
 import * as Lens from './AltCommandLens'
 import * as U from './util'
-// import { fullCommand } from './parse'
 import {
   MOLECULE,
   OPERATOR,
   TEXT,
   IMAGE,
   PARTIAL_IMAGE,
+  MULTIPLE_IMAGES,
   TEXT_WITH_PARENS,
   ALT_COMMAND_OPERATOR,
   faceButtonRx,
-  directionalButtonRx
+  directionalButtonRx,
+  multipleImagesTypeRx
 } from './constants'
 
 R.if = R.ifElse(R.__, R.__, R.identity)
 
-const removeMaybesAndFlatten = R.pipe(
+const omitMaybesAndFlatten = R.pipe(
   R.flatten,
   R.filter(RA.isNotNilOrEmpty)
 )
@@ -75,8 +75,15 @@ const InputMolecule = {
           // MIKE: use R.any or R.or to make this more func-y:
           R.propSatisfies(x => S.test(faceButtonRx)(x) || (x === '+'), 'val'),
           R.always(PARTIAL_IMAGE)
+        ], [
+          R.propSatisfies(S.test(multipleImagesTypeRx), 'val'),
+          R.always(MULTIPLE_IMAGES)
+        ], [
+          R.T,
+          R.always(TEXT)
         ]
       ]),
+
       val: R.cond([
         [
           R.propSatisfies(S.test(faceButtonRx), 'val'),
@@ -87,6 +94,21 @@ const InputMolecule = {
         ], [
           R.propEq('val', '+'),
           R.always('plus')
+        ], [
+          R.propEq('val', 'qcb'),
+          R.always(['d', 'db', 'b'])
+        ], [
+          R.propEq('val', 'hcb'),
+          R.always(['f', 'df', 'd', 'db', 'b'])
+        ], [
+          R.propEq('val', 'qcf'),
+          R.always(['d', 'df', 'f'])
+        ], [
+          R.propEq('val', 'hcf'),
+          R.always(['b', 'db', 'd', 'df', 'f'])
+        ], [
+          R.T,
+          R.prop('val')
         ]])
     }))
 }
@@ -153,7 +175,7 @@ const combinePartialImages = R.pipe(
     R.any(R.propEq('type', PARTIAL_IMAGE)),
 
     // MIKE: make this pipe more func-y (and separate concerns better) by using
-    // state during parsing to predetermine this condition instead:
+    // state during parsing to predetermine the condition instead:
     R.pipe(
       RA.reduceIndexed(
         (acc, el, i) => {
@@ -172,19 +194,7 @@ const combinePartialImages = R.pipe(
 
 export const compileToProps = R.pipe(
   R.map(AltCommand.body),
-  removeMaybesAndFlatten,
+  omitMaybesAndFlatten,
   combinePartialImages,
-  removeMaybesAndFlatten
+  omitMaybesAndFlatten
 )
-
-// const testCommand = 'jump in rage 1+2* or when hit F+f+d/f+4, 2 (close)'
-// const testCommand2 = '1+2'
-// const testTree = fullCommand.run(testCommand).result
-// const testTree2 = fullCommand.run(testCommand2).result
-// const compiledTestTree = compileFullCommandToProps(testTree)
-// const compiledTestTree2 = compileFullCommandToProps(testTree2)
-
-// jsonFormat(testTree) // ?
-// // jsonFormat(testTree2) // ?
-// jsonFormat(compiledTestTree) // ?
-// // jsonFormat(compiledTestTree2) // ?

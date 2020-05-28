@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     v-model="dialog"
-    width="500"
+    width="80%"
   >
     <template v-slot:activator="{ on }">
       <!-- naming this strings other than "asdf" mysterously breaks it ooooOOoooOOoo! -->

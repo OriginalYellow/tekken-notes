@@ -43,6 +43,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -81,6 +82,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
     Object {
@@ -120,10 +122,20 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": false,
       "type": "alt command",
     },
   ],
 }
+`;
+
+exports[`"1+2" should compile to props correctly 1`] = `
+Array [
+  Object {
+    "type": "image",
+    "val": "1plus2",
+  },
+]
 `;
 
 exports[`"1+3 (cancel) or 1" parses correctly 1`] = `
@@ -160,6 +172,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": "cancel",
       },
+      "first": true,
       "type": "alt command",
     },
     Object {
@@ -182,6 +195,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": false,
       "type": "alt command",
     },
   ],
@@ -222,6 +236,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": "cancel",
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -290,6 +305,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -364,6 +380,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -434,6 +451,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -504,6 +522,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -614,6 +633,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
     Object {
@@ -636,6 +656,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": false,
       "type": "alt command",
     },
   ],
@@ -704,6 +725,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
     Object {
@@ -726,6 +748,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": false,
       "type": "alt command",
     },
   ],
@@ -788,6 +811,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
@@ -842,10 +866,68 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
   ],
 }
+`;
+
+exports[`"jump in rage 1+2* or when hit F+f+d/f+4, 2 (close)" should compile to props correctly 1`] = `
+Array [
+  Object {
+    "type": "text",
+    "val": "jump",
+  },
+  Object {
+    "type": "text",
+    "val": "rage",
+  },
+  Object {
+    "type": "image",
+    "val": "1plus2",
+  },
+  Object {
+    "type": "image",
+    "val": "neutral",
+  },
+  Object {
+    "type": "alt command operator",
+    "val": "or",
+  },
+  Object {
+    "type": "text",
+    "val": "when hit",
+  },
+  Object {
+    "type": "image",
+    "val": "F-hold",
+  },
+  Object {
+    "type": "image",
+    "val": "f",
+  },
+  Object {
+    "type": "image",
+    "val": "df",
+  },
+  Object {
+    "type": "image",
+    "val": "4",
+  },
+  Object {
+    "type": "image",
+    "val": "comma",
+  },
+  Object {
+    "type": "image",
+    "val": "2",
+  },
+  Object {
+    "type": "text with parens",
+    "val": "close",
+  },
+]
 `;
 
 exports[`"rss in rage 2, 1 or 1" parses correctly 1`] = `
@@ -900,6 +982,7 @@ Object {
         ],
         "suffix condition": null,
       },
+      "first": true,
       "type": "alt command",
     },
     Object {
@@ -922,6 +1005,7 @@ Object {
         "prefix conditions": Array [],
         "suffix condition": null,
       },
+      "first": false,
       "type": "alt command",
     },
   ],

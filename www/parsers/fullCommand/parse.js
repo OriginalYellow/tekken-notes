@@ -26,7 +26,8 @@ import {
   MOLECULE_PREFIX_CONDITION_STRINGS,
   OTHER_ALT_COMMAND_PREFIX_CONDITION_STRINGS,
   STANCE_PREFIX_CONDITION_STRINGS,
-  ALT_COMMAND_SUFFIX_CONDITION_STRINGS
+  ALT_COMMAND_SUFFIX_CONDITION_STRINGS,
+  INPUT_ATOM_STRINGS
 } from './constants'
 
 R.if = R.ifElse(R.__, R.__, R.identity)
@@ -39,7 +40,7 @@ const betweenParens = parser =>
 
 const sepByOr = A.sepBy1(whitespaceSurrounded(A.str('or')))
 
-const conditionString = terminator => stringOrArray => A.regex(new RegExp(
+const terminatedString = terminator => stringOrArray => A.regex(new RegExp(
   `^${
   RA.isString(stringOrArray) ? stringOrArray : stringOrArray[0]
   }(?=${terminator})`,
@@ -50,11 +51,13 @@ const conditionString = terminator => stringOrArray => A.regex(new RegExp(
   R.always(stringOrArray[1])
 )).map(R.toLower)
 
-const prefixConditionStrings = R.map(conditionString('\\s'))
-
 const inputAtom = whitespaceSurrounded(
   A.sequenceOf([
-    A.regex(inputAtomRx),
+    A.choice([
+      // eslint-disable-next-line no-useless-escape
+      ...R.map(terminatedString('(\\+)*'), INPUT_ATOM_STRINGS),
+      A.regex(inputAtomRx)
+    ]),
     A.lookAhead(A.choice([
       A.regex(inputAtomTerminatorRx),
       A.endOfInput
@@ -84,6 +87,8 @@ const inputMoleculeBody = A.sequenceOf([
     U.lastIsNull,
     R.init
   ))
+
+const prefixConditionStrings = R.map(terminatedString('\\s'))
 
 const inputMoleculePrefixCondition = A.possibly(A.choice(prefixConditionStrings(
   MOLECULE_PREFIX_CONDITION_STRINGS
@@ -150,7 +155,7 @@ const getAltCommandSuffixCondition = R.compose(
   whitespaceSurrounded,
   betweenParens,
   A.choice,
-  R.map(conditionString('[)]'))
+  R.map(terminatedString('[)]'))
 )
 
 const altCommandSuffixCondition = getAltCommandSuffixCondition(
@@ -162,14 +167,23 @@ const altCommand = A.namedSequenceOf([
   [INPUT_MOLECULES, inputMolecules],
   [
     SUFFIX_CONDITION,
-    A.choice([
-      altCommandSuffixCondition,
-      A.endOfInput,
-      A.regex(altCommandTerminatorRx)
-    ]).map(R.if(
-      RA.isNilOrEmpty,
-      R.always(null)
-    ))
+
+    A.sequenceOf([
+      A.choice([
+        altCommandSuffixCondition,
+        A.endOfInput,
+        A.regex(altCommandTerminatorRx)
+      ]).map(R.if(
+        RA.isNilOrEmpty,
+        R.always(null)
+      )),
+
+      A.lookAhead(A.choice([
+        A.regex(altCommandTerminatorRx),
+        A.endOfInput
+      ]))
+    ]).map(R.head)
+
   ]
 ])
 
